@@ -37,13 +37,17 @@ void Home::Init()
     musicas[6] = "Sunflower";
     musicas[7] = "In The End";
 
-    string musica1 = musicas[dist(mt)];
-    string musica2 = musicas[dist(mt)];
-
-    while (musica1 == musica2)
-    {
-        musica2 = dist(mt);
+    int a = dist(mt);
+    int b = dist(mt);
+    if (a == b) {
+        b == 5;
+        if (a == b) {
+            b = 5 - 2;
+        }
     }
+
+    string musica1 = musicas[a];
+    string musica2 = musicas[b];
 
     // cria sistema de áudio
     audio = new Audio();
