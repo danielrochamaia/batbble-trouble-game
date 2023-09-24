@@ -29,18 +29,23 @@ private:
 public:
 
     Vector();                           // construtor padrão
+    Vector(float ang, float mag);
     //Vector(float ang, float mag);       // construtor com ângulo e magnitude
 
     void setXY(float x, float y);
     void setPolar(float ang, float mag);
     void Rotate(float theta);           // rotaciona vetor por ângulo em graus
     void Scale(float factor);           // amplia ou reduz vetor por um fator
+    void Add(const Vector& v);          // adiciona vetor recebido por parâmetro
+
 
     float X() const;                    // retorna componente X do vetor
     float Y() const;                    // retorna componente Y do vetor
     float Angle() const;                // retorna componente de angulo do vetor
     float Magnitude() const;            // retorna componente de magnitude do vetor
     float Radians() const;              // retorna ângulo em radianos
+    float XComponent() const;           // retorna componente X do vetor
+    float YComponent() const;           // retorna componente Y do vetor
 
     Vector operator+(const Vector*);    // sobrecarga do operador de soma
     Vector operator*(float);            // sobrecarga do operador de multiplicação por escalar
@@ -65,6 +70,16 @@ inline float Vector::Angle() const
 // retorna componente de magnitude do vetor
 inline float Vector::Magnitude() const
 { return magnitude; }
+
+inline float Vector::XComponent() const
+{
+    return magnitude * cos(Radians());
+}
+
+inline float Vector::YComponent() const
+{
+    return magnitude * sin(Radians());
+}
 
 // retorna ângulo em radianos
 inline float Vector::Radians() const

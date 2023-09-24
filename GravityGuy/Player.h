@@ -41,6 +41,7 @@ private:
     TileSet   * tileset;                // folha de sprites do personagem
     //TileSet   * player1TileSet;                // folha de sprites do personagem
     Animation * anim;                   // animação do personagem
+    Image* weapon;
     uint        gravity;                // gravidade atuando sobre o jogador
     int         level;                  // nível finalizado
     static const double PIXEL_PER_METER;
@@ -53,8 +54,6 @@ private:
     float velx;
     float mass;
     float inverseMass;
-
-    void zeroGravityForce();
     
 public:
     Player();                           // construtor

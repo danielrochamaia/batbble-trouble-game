@@ -18,6 +18,7 @@
 #include "Types.h"              // tipos específicos da engine
 #include "Object.h"             // interface de Object
 #include "Sprite.h"             // interface de Sprites
+#include "Vector.h"
 
 // ---------------------------------------------------------------------------------
 
@@ -25,14 +26,14 @@ class Ball : public Object
 {
 private:
     Sprite* sprite;            // sprite do bloco
-
+    Vector speed;
 
 public:
     float velX;                 // velocidade horizontal
     float velY;                 // velocidade vertical
     float vel;
 
-    Ball(Image* img, float speed, uint tipo);         // construtor
+    Ball(Image* img, float velocidade, uint tipo);         // construtor
     ~Ball();                   // destrutor
 
 
@@ -45,7 +46,7 @@ public:
 
 inline void Ball::Draw()
 {
-    sprite->Draw(x, y, z);
+    sprite->Draw(x, y);
 }
 
 // ---------------------------------------------------------------------------------

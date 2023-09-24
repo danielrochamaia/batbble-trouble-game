@@ -48,40 +48,39 @@ void Level1::Init()
     // plataformas
     // ----------------------
 
-    Platform * plat;
-    float posX, posY;
-    uint  platType;
-    Color white { 1,1,1,1 };
-    Ball* ball;
-    Moldura* moldura;
+    //Platform * plat;
+    //float posX, posY;
+    //uint  platType;
+    //Color white { 1,1,1,1 };
 
     redBall = new Image("Resources/bola-g.png");
-
-    ball = new Ball(redBall, -200, INIMIGO);
+    
+    Ball * ball = new Ball(redBall, -200, INIMIGO);
     ball->MoveTo(window->CenterX(), window->CenterY());
     ball->BBox(new Circle(72.0f));
     scene->Add(ball, MOVING);
 
-    moldura = new Moldura(new Image(""), 0, CIMA);
-    moldura->MoveTo(5, 5, Layer::BACK);
-    moldura->BBox(new Rect(-window->Width(), -16, window->Width(), 16));
-    scene->Add(moldura, STATIC);
-
-    moldura = new Moldura(new Image(""), 0, BAIXO);
+    
+    //Moldura * moldura = new Moldura(CIMA);
+    //moldura->MoveTo(5, 5, Layer::BACK);
+    // moldura->BBox(new Rect(-window->Width(), -16, window->Width(), 16));
+    // scene->Add(moldura, STATIC);
+    /*
+    moldura = new Moldura(0, BAIXO);
     moldura->MoveTo(5, 720, Layer::BACK);
     moldura->BBox(new Rect(-window->Width(), -16, window->Width(), 16));
     scene->Add(moldura, STATIC);
 
-    moldura = new Moldura(new Image(""), 0, ESQUERDA);
+    moldura = new Moldura(0, ESQUERDA);
     moldura->MoveTo(5, 5, Layer::BACK);
     moldura->BBox(new Rect(-16, -window->Height(), 16, window->Height()));
     scene->Add(moldura, STATIC);
 
-    moldura = new Moldura(new Image(""), 0, DIREITA);
+    moldura = new Moldura(0, DIREITA);
     moldura->MoveTo(1080, 5, Layer::BACK);
     moldura->BBox(new Rect(-16, -window->Height(), 16, window->Height()));
     scene->Add(moldura, STATIC);
-
+    */
     //ifstream fin;
     //fin.open("Level1.txt");
 

@@ -24,29 +24,21 @@
 class Moldura : public Object
 {
 private:
-    Sprite* sprite;            // sprite do bloco
 
 
 public:
-    float velX;                 // velocidade horizontal
-    float velY;                 // velocidade vertical
-    float vel;
 
-    Moldura(Image* img, float speed, uint tipo);         // construtor
+    Moldura(uint tipo);         // construtor
     ~Moldura();                   // destrutor
 
 
     //void OnCollision(Object* obj);     // resolução da colisão
+    void Draw();
     void Update();              // atualização do objeto
-    void Draw();                // desenho do objeto
 };
 
 // ---------------------------------------------------------------------------------
 
-inline void Moldura::Draw()
-{
-    sprite->Draw(x, y, z);
-}
 
 // ---------------------------------------------------------------------------------
 
