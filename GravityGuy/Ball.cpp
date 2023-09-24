@@ -82,27 +82,27 @@ void Ball::OnCollision(Object* obj)
     // bola colidiu com o player
     if (obj->Type() == CIMA)
     {
-        MoveTo(x, y+1);
+        //MoveTo(x, y+1);
         velY = -velY;
 
     }
     // bola colidiu com o player
     if (obj->Type() == BAIXO)
     {
-        MoveTo(x, y - 1);
+        //MoveTo(x, y - 1);
         velY = -velY;
 
     }
     // bola colidiu com o player
     if (obj->Type() == ESQUERDA)
     {
-        MoveTo(x+1, y);
+        //MoveTo(x+1, y);
         velX = -velX;
     }
     // bola colidiu com o player
     if (obj->Type() == DIREITA)
     {
-        MoveTo(x-1, y);
+        //MoveTo(x-1, y);
         velX = -velX;
     }
 
