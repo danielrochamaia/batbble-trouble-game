@@ -42,6 +42,9 @@ void Level2::Init()
     // adiciona jogador na cena
     scene->Add(GravityGuy::player, MOVING);
 
+    Home::audio->Play(MUSIC2);
+    Home::audio->Volume(MUSIC2, 0.05f);
+
     // ----------------------
     // plataformas
     // ----------------------
@@ -76,9 +79,6 @@ void Level2::Init()
     //fin.close();
 
     // ----------------------
-
-    GravityGuy::audio->Frequency(MUSIC, 1.00f);
-    GravityGuy::audio->Frequency(TRANSITION, 0.85f);
 }
 
 // ------------------------------------------------------------------------------
@@ -87,13 +87,13 @@ void Level2::Update()
 {
     if (window->KeyPress(VK_ESCAPE) || GravityGuy::player->Level() == 2 || window->KeyPress('N'))
     {
-        GravityGuy::audio->Stop(MUSIC);
+        Home::audio->Stop(MUSIC2);
         GravityGuy::NextLevel<Home>();
         //GravityGuy::player->Reset();
     }
     else if (GravityGuy::player->Bottom() < 0 || GravityGuy::player->Top() > window->Height())
     {
-        GravityGuy::audio->Stop(MUSIC);
+        Home::audio->Stop(MUSIC2);
         GravityGuy::NextLevel<GameOver>();
         //GravityGuy::player->Reset();
     }

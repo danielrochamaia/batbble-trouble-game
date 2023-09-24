@@ -12,6 +12,8 @@
 #include "Player.h"
 #include "GravityGuy.h"
 #include "Platform.h"
+#include "Weapon.h"
+#include "Level1.h"
 
 // ---------------------------------------------------------------------------------
 const double Player::PIXEL_PER_METER = 50;
@@ -33,6 +35,7 @@ Player::Player()
     anim->Add(RUNLEFT, seqRunLeft, 3);
 
     state = IDLE;
+    weapon = new Image("Resources/hook-weapon.png");
     // cria bounding box
     BBox(new Rect(
         -1.0f * tileset->TileWidth() / 2.0f,
@@ -53,7 +56,8 @@ Player::Player()
 Player::~Player()
 {
     delete anim;
-    delete tileset;    
+    delete tileset;
+    delete weapon;
 }
 
 // ---------------------------------------------------------------------------------
@@ -105,6 +109,10 @@ void Player::OnCollision(Object * obj)
 void Player::Update()
 {
     hasZeroGravity = false;
+
+    if (window->KeyPress(VK_SPACE)) {
+        Level1::scene->Add(new Weapon(this, weapon), STATIC);
+    }
 
     if (window->KeyDown('A') || window->KeyDown(VK_LEFT)) {
         state = RUN;
