@@ -26,7 +26,7 @@ void Home::Init()
     audio = nullptr;
     random_device rd;
     mt19937 mt(rd());
-    uniform_int_distribution<int> dist(0, 8);
+    uniform_int_distribution<int> dist(0, 7);
     string musicas[8];
     musicas[0] = "Megaman";
     musicas[1] = "Joker";
@@ -37,17 +37,13 @@ void Home::Init()
     musicas[6] = "Sunflower";
     musicas[7] = "In The End";
 
-    int a = dist(mt);
-    int b = dist(mt);
-    if (a == b) {
-        b == 5;
-        if (a == b) {
-            b = 5 - 2;
-        }
-    }
+    string musica1 = musicas[dist(mt)];
+    string musica2 = musicas[dist(mt)];
 
-    string musica1 = musicas[a];
-    string musica2 = musicas[b];
+    while (musica1 == musica2)
+    {
+        musica2 = dist(mt);
+    }
 
     // cria sistema de áudio
     audio = new Audio();
