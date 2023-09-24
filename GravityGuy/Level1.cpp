@@ -108,11 +108,9 @@ void Level1::Init()
     //fin.close();
 
     // ----------------------
-
-    // inicia com música
-    GravityGuy::audio->Frequency(MUSIC, 0.94f);
-    GravityGuy::audio->Frequency(TRANSITION, 1.0f);
-    GravityGuy::audio->Play(MUSIC);
+        // inicia com música
+    Home::audio->Play(MUSIC1, true);
+    Home::audio->Volume(MUSIC1, 0.05f);
 }
 
 // ------------------------------------------------------------------------------
@@ -121,18 +119,19 @@ void Level1::Update()
 {
     if (window->KeyPress(VK_ESCAPE))
     {
-        GravityGuy::audio->Stop(MUSIC);
+        Home::audio->Stop(MUSIC1);
         GravityGuy::NextLevel<Home>();
         //GravityGuy::player->Reset();
     }
     else if (GravityGuy::player->Bottom() < 0 || GravityGuy::player->Top() > window->Height())
     {
-        GravityGuy::audio->Stop(MUSIC);
+        Home::audio->Stop(MUSIC1);
         GravityGuy::NextLevel<GameOver>();
         //GravityGuy::player->Reset();
     }
     else if (GravityGuy::player->Level() == 1 || window->KeyPress('N'))
     {
+        Home::audio->Stop(MUSIC1);
         GravityGuy::NextLevel<Level2>();
     }
     else

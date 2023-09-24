@@ -13,15 +13,54 @@
 #include "GravityGuy.h"
 #include "Home.h"
 #include "Level1.h"
+#include "Audio.h"
+#include <iostream>
+#include <random>
+using namespace std;
+
 
 // ------------------------------------------------------------------------------
-
+Audio* Home::audio = nullptr;
 void Home::Init()
 {
+    audio = nullptr;
+    random_device rd;
+    mt19937 mt(rd());
+    uniform_int_distribution<int> dist(0, 8);
+    string musicas[8];
+    musicas[0] = "Megaman";
+    musicas[1] = "Joker";
+    musicas[2] = "Heathens";
+    musicas[3] = "Gravity Falls";
+    musicas[4] = "Clint Eastwood";
+    musicas[5] = "Another Brick In The Wall";
+    musicas[6] = "Sunflower";
+    musicas[7] = "In The End";
+
+    int a = dist(mt);
+    int b = dist(mt);
+    if (a == b) {
+        b == 5;
+        if (a == b) {
+            b = 5 - 2;
+        }
+    }
+
+    string musica1 = musicas[a];
+    string musica2 = musicas[b];
+
+    // cria sistema de áudio
+    audio = new Audio();
+    audio->Add(HOME, "Resources/sons/Menu.wav");
+    audio->Add(MUSIC1, "Resources/sons/" + musica1 + ".wav");
+    audio->Add(MUSIC2, "Resources/sons/" + musica2 + ".wav");
+    audio->Add(TRANSITION, "Resources/Transition.wav");
+
     backg = new Sprite("Resources/menu-background.jpg");
     tileset = new TileSet("Resources/PressEnter.png", 72, 48, 1, 5);
     anim = new Animation(tileset, 0.180f, true);
-    GravityGuy::audio->Play(MENU, true);
+    audio->Play(HOME, true);
+    audio->Volume(HOME, 0.05f);
 }
 
 // ------------------------------------------------------------------------------
@@ -35,7 +74,7 @@ void Home::Update()
     // se a tecla ENTER for pressionada
     if (window->KeyPress(VK_RETURN))
     {
-        GravityGuy::audio->Stop(MENU);
+        audio->Stop(HOME);
         GravityGuy::NextLevel<Level1>();
     }
     else

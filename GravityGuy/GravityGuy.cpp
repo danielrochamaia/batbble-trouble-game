@@ -14,23 +14,21 @@
 #include "Home.h"
 #include "GameOver.h"
 
+
 // ------------------------------------------------------------------------------
 
 // inicializa membros estáticos da classe
 Game*   GravityGuy::level = nullptr;
 Player* GravityGuy::player = nullptr;
-Audio*  GravityGuy::audio = nullptr;
 bool    GravityGuy::viewBBox = false;
+
+
 
 // ------------------------------------------------------------------------------
 
 void GravityGuy::Init() 
 {
-    // cria sistema de áudio
-    audio = new Audio();
-    audio->Add(MENU, "Resources/MENU_SONG.wav");
-    audio->Add(MUSIC, "Resources/BACKGROUND_SONG.wav");
-    audio->Add(TRANSITION, "Resources/Transition.wav");
+    
 
     // bounding box não visível
     viewBBox = false;
@@ -70,8 +68,8 @@ void GravityGuy::Finalize()
     level->Finalize();
 
     delete player;
-    delete audio;
     delete level;
+    delete Home::audio;
 }
 
 

@@ -15,13 +15,11 @@
 // ---------------------------------------------------------------------------------
 
 #include "Game.h"
-#include "Audio.h"
 #include "Player.h"
 #include "Resources.h"
 
 // ------------------------------------------------------------------------------
 
-enum Sounds {MENU, MUSIC, TRANSITION};
 enum TypeObjects
 {
     PLAYER,
@@ -43,7 +41,6 @@ private:
 
 public:
     static Player * player;         // jogador 
-    static Audio * audio;           // sistema de áudio
     static bool viewBBox;           // estado da bounding box
 
     void Init();                    // inicializa jogo

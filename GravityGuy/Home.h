@@ -19,7 +19,9 @@
 #include "Sprite.h"
 #include "TileSet.h"
 #include "Animation.h"
+#include "Audio.h"
 
+enum Sounds { HOME, MUSIC1, MUSIC2, GAMEOVER, TRANSITION };
 // ------------------------------------------------------------------------------
 
 class Home : public Game
@@ -30,6 +32,7 @@ private:
     Animation * anim = nullptr;     // animação do menu
 
 public:
+    static Audio* audio;           // sistema de áudio
     void Init();                    // inicia nível
     void Update();                  // atualiza lógica do jogo
     void Draw();                    // desenha jogo
