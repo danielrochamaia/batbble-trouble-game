@@ -23,10 +23,10 @@ using namespace std;
 Audio* Home::audio = nullptr;
 void Home::Init()
 {
-    audio = nullptr;
-    random_device rd;
-    mt19937 mt(rd());
-    uniform_int_distribution<int> dist(0, 7);
+    //audio = nullptr;
+    //random_device rd;
+    //mt19937 mt(rd());
+    //uniform_int_distribution<int> dist(0, 7);
     string musicas[8];
     musicas[0] = "Megaman";
     musicas[1] = "Joker";
@@ -37,23 +37,23 @@ void Home::Init()
     musicas[6] = "Sunflower";
     musicas[7] = "In The End";
 
-    int a = dist(mt);
-    int b = dist(mt);
-    if (a == b) {
-        b == 5;
-        if (a == b) {
-            b = 5 - 2;
-        }
-    }
+    //int a = dist(mt);
+    //int b = dist(mt);
+    //if (a == b) {
+    //    b == 5;
+    //    if (a == b) {
+    //        b = 5 - 2;
+    //    }
+    //}
 
-    string musica1 = musicas[a];
-    string musica2 = musicas[b];
+    //string musica1 = musicas[a];
+    //string musica2 = musicas[b];
 
     // cria sistema de áudio
     audio = new Audio();
     audio->Add(HOME, "Resources/sons/Menu.wav");
-    audio->Add(MUSIC1, "Resources/sons/" + musica1 + ".wav");
-    audio->Add(MUSIC2, "Resources/sons/" + musica2 + ".wav");
+    audio->Add(MUSIC1, "Resources/sons/" + musicas[0] + ".wav");
+    audio->Add(MUSIC2, "Resources/sons/" + musicas[7] + ".wav");
     audio->Add(TRANSITION, "Resources/Transition.wav");
 
     backg = new Sprite("Resources/menu-background.jpg");
