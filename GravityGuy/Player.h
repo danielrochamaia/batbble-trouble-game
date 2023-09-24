@@ -59,6 +59,8 @@ public:
     Player();                           // construtor
     ~Player();                          // destrutor
 
+    uint nivelAtual;
+
     int Level();                        // último nível finalizado
     float Bottom();                     // coordenadas da base
     float Top();                        // coordenadas do topo

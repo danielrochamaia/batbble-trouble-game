@@ -14,6 +14,7 @@
 #include "Platform.h"
 #include "Weapon.h"
 #include "Level1.h"
+#include "Level2.h"
 
 // ---------------------------------------------------------------------------------
 const double Player::PIXEL_PER_METER = 50;
@@ -111,7 +112,12 @@ void Player::Update()
     hasZeroGravity = false;
 
     if (window->KeyPress(VK_SPACE)) {
-        Level1::scene->Add(new Weapon(this, weapon), STATIC);
+        if (nivelAtual == 1) {
+            Level1::scene->Add(new Weapon(this, weapon), STATIC);
+        }
+        if (nivelAtual == 2) {
+            Level2::scene->Add(new Weapon(this, weapon), STATIC);
+        }
     }
 
     if (window->KeyDown('A') || window->KeyDown(VK_LEFT)) {

@@ -31,6 +31,7 @@ Scene* Level2::scene = nullptr;
 
 void Level2::Init()
 {
+    GravityGuy::player->nivelAtual = 2;
     // cria gerenciador de cena
     scene = new Scene();
 
