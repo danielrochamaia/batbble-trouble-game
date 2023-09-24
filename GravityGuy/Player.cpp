@@ -112,7 +112,7 @@ void Player::Update()
     hasZeroGravity = false;
 
     #pragma region DisparoArma
-    if (window->KeyPress('Q')) {
+    if (window->KeyPress(VK_SPACE)) {
         
         Weapon* disparo = new Weapon(GravityGuy::player1, weapon);
 
@@ -129,7 +129,7 @@ void Player::Update()
         }
     }
 
-    if (window->KeyPress(VK_SPACE)) {
+    if (window->KeyPress('Q')) {
 
         Weapon* disparo = new Weapon(GravityGuy::player2, weapon);
 
@@ -149,12 +149,12 @@ void Player::Update()
 
 
     #pragma region Movimentação Player 1
-    if (window->KeyDown('A')) {
+    if (window->KeyDown(VK_LEFT)) {
         GravityGuy::player1->state = RUN;
         GravityGuy::player1->isMovingLeft = true;
         GravityGuy::player1->Translate(-velx * PIXEL_PER_METER * gameTime, 0);
     }
-    if (window->KeyDown('D')) {
+    if (window->KeyDown(VK_RIGHT)) {
         GravityGuy::player1->state = RUN;
         GravityGuy::player1->isMovingLeft = false;
         GravityGuy::player1->Translate(velx * PIXEL_PER_METER * gameTime, 0);
@@ -180,12 +180,12 @@ void Player::Update()
     #pragma endregion
 
     #pragma region Movimentação Player 2
-    if (window->KeyDown(VK_LEFT)) {
+    if (window->KeyDown('A')) {
         GravityGuy::player2->state = RUN;
         GravityGuy::player2->isMovingLeft = true;
         GravityGuy::player2->Translate(-velx * PIXEL_PER_METER * gameTime, 0);
     }
-    if (window->KeyDown(VK_RIGHT)) {
+    if (window->KeyDown('D')) {
         GravityGuy::player2->state = RUN;
         GravityGuy::player2->isMovingLeft = false;
         GravityGuy::player2->Translate(velx * PIXEL_PER_METER * gameTime, 0);
