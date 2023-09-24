@@ -11,19 +11,19 @@
 
 #include "Moldura.h"
 #include "Level1.h"
-#include "Player.h"
 
 // ---------------------------------------------------------------------------------
 
-Moldura::Moldura(Image* img, float speed, uint tipo)
+Moldura::Moldura(uint tipo)
 {
     // tamanho do bloco é 60x24
     /*BBox(new Rect(-30, -12, 29, 11));*/
 
     // sprite do bloco
-    sprite = new Sprite(img);
+    // sprite = new Sprite(img);
 
     // tipo do objeto
+
     type = tipo;
 }
 
@@ -31,7 +31,7 @@ Moldura::Moldura(Image* img, float speed, uint tipo)
 
 Moldura::~Moldura()
 {
-    delete sprite;
+    //delete sprite;
 }
 
 // ---------------------------------------------------------------------------------
