@@ -31,7 +31,7 @@ public:
 public:
     Weapon(Player* player, Image* img);    // construtor
     ~Weapon();                                 // destrutor
-
+    void OnCollision(Object* obj);     // resolução da colisão
     float scale;
     float dy = 0;
     float velY;                        // velocidade vertical  

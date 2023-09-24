@@ -57,6 +57,7 @@ void Home::Init()
     audio->Add(TRANSITION, "Resources/Transition.wav");
 
     backg = new Sprite("Resources/menu-background.jpg");
+    //backg = new Sprite("Resources/menu.png");
     tileset = new TileSet("Resources/PressEnter.png", 72, 48, 1, 5);
     anim = new Animation(tileset, 0.180f, true);
     audio->Play(HOME, true);
@@ -87,7 +88,7 @@ void Home::Update()
 
 void Home::Draw()
 {
-    backg->Draw(window->CenterX(), window->CenterY(), Layer::BACK);
+    backg->Draw(window->CenterX() + 220, window->CenterY(), Layer::BACK);
     anim->Draw(545, 275);
 }
 

@@ -31,7 +31,7 @@ Scene* Level2::scene = nullptr;
 
 void Level2::Init()
 {
-    GravityGuy::player->nivelAtual = 2;
+    GravityGuy::player1->nivelAtual = 2;
     // cria gerenciador de cena
     scene = new Scene();
 
@@ -41,7 +41,10 @@ void Level2::Init()
     scene->Add(backg, STATIC);
 
     // adiciona jogador na cena
-    scene->Add(GravityGuy::player, MOVING);
+    scene->Add(GravityGuy::player1, MOVING);
+    if (GravityGuy::twoPlayers) {
+        scene->Add(GravityGuy::player2, MOVING);
+    }
 
     Home::audio->Play(MUSIC2);
     Home::audio->Volume(MUSIC2, 0.05f);
@@ -86,16 +89,12 @@ void Level2::Init()
 
 void Level2::Update()
 {
-    if (window->KeyPress(VK_ESCAPE) || GravityGuy::player->Level() == 2 || window->KeyPress('N'))
+    if (window->KeyPress(VK_ESCAPE) || GravityGuy::player1->Level() == 2 || window->KeyPress('N'))
     {
         Home::audio->Stop(MUSIC2);
         GravityGuy::NextLevel<Home>();
-        //GravityGuy::player->Reset();
-    }
-    else if (GravityGuy::player->Bottom() < 0 || GravityGuy::player->Top() > window->Height())
-    {
-        Home::audio->Stop(MUSIC2);
-        GravityGuy::NextLevel<GameOver>();
+        GravityGuy::player1->disparoPlayer = false;
+        GravityGuy::player2->disparoPlayer = false;
         //GravityGuy::player->Reset();
     }
     else
@@ -120,7 +119,10 @@ void Level2::Draw()
 
 void Level2::Finalize()
 {
-    scene->Remove(GravityGuy::player, MOVING);
+    scene->Remove(GravityGuy::player1, MOVING);
+    if (GravityGuy::twoPlayers) {
+        scene->Remove(GravityGuy::player2, MOVING);
+    }
     delete scene;
 }
 

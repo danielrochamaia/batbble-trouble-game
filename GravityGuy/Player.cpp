@@ -18,9 +18,9 @@
 
 // ---------------------------------------------------------------------------------
 const double Player::PIXEL_PER_METER = 50;
-Player::Player()
+Player::Player(string src)
 {
-    tileset = new TileSet("Resources/bat-flow-2.png", 50, 101, 3, 12);
+    tileset = new TileSet(src, 50, 101, 3, 12);
     anim = new Animation(tileset, 0.120f, true);
     velx = 6;
     // sequências de animação do player
@@ -111,43 +111,105 @@ void Player::Update()
 {
     hasZeroGravity = false;
 
+    #pragma region DisparoArma
+    if (window->KeyPress('Q')) {
+        
+        Weapon* disparo = new Weapon(GravityGuy::player1, weapon);
+
+        if (nivelAtual == 1 && GravityGuy::player1->disparoPlayer == false) {
+            
+            Level1::scene->Add(disparo, STATIC);
+            GravityGuy::player1->disparoPlayer = true;
+        }
+
+        if (nivelAtual == 2 && disparoPlayer == false) {
+           
+            Level2::scene->Add(disparo, STATIC);
+            GravityGuy::player1->disparoPlayer = true;
+        }
+    }
+
     if (window->KeyPress(VK_SPACE)) {
-        if (nivelAtual == 1) {
-            Level1::scene->Add(new Weapon(this, weapon), STATIC);
+
+        Weapon* disparo = new Weapon(GravityGuy::player2, weapon);
+
+        if (nivelAtual == 1 && GravityGuy::player2->disparoPlayer == false) {
+
+            Level1::scene->Add(disparo, STATIC);
+            GravityGuy::player2->disparoPlayer = true;
         }
-        if (nivelAtual == 2) {
-            Level2::scene->Add(new Weapon(this, weapon), STATIC);
+
+        if (nivelAtual == 2 && GravityGuy::player2->disparoPlayer == false) {
+
+            Level2::scene->Add(disparo, STATIC);
+            GravityGuy::player2->disparoPlayer = true;
         }
     }
+    #pragma endregion
 
-    if (window->KeyDown('A') || window->KeyDown(VK_LEFT)) {
-        state = RUN;
-        isMovingLeft = true;
-        Translate(-velx * PIXEL_PER_METER * gameTime, 0);
-    }
-    if (window->KeyDown('D') || window->KeyDown(VK_RIGHT)) {
-        state = RUN;
-        isMovingLeft = false;
-        Translate(velx * PIXEL_PER_METER * gameTime, 0);
-    }
 
-    if (state % 2 == 0) {
-        if (isMovingLeft)
-            ++state;
+    #pragma region Movimentação Player 1
+    if (window->KeyDown('A')) {
+        GravityGuy::player1->state = RUN;
+        GravityGuy::player1->isMovingLeft = true;
+        GravityGuy::player1->Translate(-velx * PIXEL_PER_METER * gameTime, 0);
     }
-    else if (!isMovingLeft) {
-        --state;
+    if (window->KeyDown('D')) {
+        GravityGuy::player1->state = RUN;
+        GravityGuy::player1->isMovingLeft = false;
+        GravityGuy::player1->Translate(velx * PIXEL_PER_METER * gameTime, 0);
     }
 
-    anim->Select(state);
+    if (GravityGuy::player1->state % 2 == 0) {
+        if (GravityGuy::player1->isMovingLeft)
+            GravityGuy::player1->state += 1;
+    }
+    else if (!GravityGuy::player1->isMovingLeft) {
+        GravityGuy::player1->state -= 1;
+    }
 
-    if (!isClimbing) {
-        if (isMovingLeft)
-            state = IDLELEFT;
+    GravityGuy::player1->anim->Select(GravityGuy::player1->state);
+
+    if (!GravityGuy::player1->isClimbing) {
+        if (GravityGuy::player1->isMovingLeft)
+            GravityGuy::player1->state = IDLELEFT;
         else
-            state = IDLE;
-        anim->NextFrame();
+            GravityGuy::player1->state = IDLE;
+        GravityGuy::player1->anim->NextFrame();
     }
+    #pragma endregion
+
+    #pragma region Movimentação Player 2
+    if (window->KeyDown(VK_LEFT)) {
+        GravityGuy::player2->state = RUN;
+        GravityGuy::player2->isMovingLeft = true;
+        GravityGuy::player2->Translate(-velx * PIXEL_PER_METER * gameTime, 0);
+    }
+    if (window->KeyDown(VK_RIGHT)) {
+        GravityGuy::player2->state = RUN;
+        GravityGuy::player2->isMovingLeft = false;
+        GravityGuy::player2->Translate(velx * PIXEL_PER_METER * gameTime, 0);
+    }
+
+    if (GravityGuy::player2->state % 2 == 0) {
+        if (GravityGuy::player2->isMovingLeft)
+            GravityGuy::player2->state += 1;
+    }
+    else if (!GravityGuy::player2->isMovingLeft) {
+        GravityGuy::player2->state -= 1;
+    }
+
+    GravityGuy::player2->anim->Select(GravityGuy::player2->state);
+
+    if (!GravityGuy::player2->isClimbing) {
+        if (GravityGuy::player2->isMovingLeft)
+            GravityGuy::player2->state = IDLELEFT;
+        else
+            GravityGuy::player2->state = IDLE;
+        GravityGuy::player2->anim->NextFrame();
+    }
+    #pragma endregion
+
 }
 
 void Player::Draw()

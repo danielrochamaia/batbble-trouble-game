@@ -56,10 +56,11 @@ private:
     float inverseMass;
     
 public:
-    Player();                           // construtor
+    Player(string src);                           // construtor
     ~Player();                          // destrutor
 
     uint nivelAtual;
+    bool disparoPlayer;
 
     int Level();                        // último nível finalizado
     float Bottom();                     // coordenadas da base

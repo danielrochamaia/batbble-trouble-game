@@ -1,6 +1,7 @@
 #include "Weapon.h"
 #include "Level1.h"
 #include "Level2.h"
+#include "GravityGuy.h"
 
 Weapon::Weapon(Player* player, Image* img)
 {
@@ -25,6 +26,14 @@ Weapon::Weapon(Player* player, Image* img)
 Weapon::~Weapon()
 {
 	delete sprite;
+}
+
+void Weapon::OnCollision(Object* obj)
+{
+    //if (obj - Type() == Weapon) {
+
+   // }
+
 }
 
 void Weapon::Update()

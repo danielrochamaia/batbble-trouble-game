@@ -23,7 +23,7 @@
 enum TypeObjects
 {
     PLAYER,
-    RIO,
+    ARPAO,
     AMIGAVEL,
     INIMIGO,
     CIMA,
@@ -40,8 +40,10 @@ private:
     static Game * level;            // nível atual do jogo
 
 public:
-    static Player * player;         // jogador 
+    static Player * player1;         // jogador 1
+    static Player * player2;         // jogador 2
     static bool viewBBox;           // estado da bounding box
+    static bool twoPlayers;
 
     void Init();                    // inicializa jogo
     void Update();                  // atualiza lógica do jogo

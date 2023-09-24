@@ -19,8 +19,10 @@
 
 // inicializa membros estáticos da classe
 Game*   GravityGuy::level = nullptr;
-Player* GravityGuy::player = nullptr;
+Player* GravityGuy::player1 = nullptr;
+Player* GravityGuy::player2 = nullptr;
 bool    GravityGuy::viewBBox = false;
+bool    GravityGuy::twoPlayers = false;
 
 
 
@@ -34,7 +36,12 @@ void GravityGuy::Init()
     viewBBox = false;
 
     // cria jogador
-    player = new Player();
+    twoPlayers = true;
+    player1 = new Player("Resources/bat-flow-2.png");
+    if (twoPlayers == true) {
+        player2 = new Player("Resources/robin-flow-2.png");
+        player2->MoveTo(player1->X() + 100, player1->Y());
+    }
 
     // inicializa nível de abertura do jogo
     level = new Home();
@@ -67,7 +74,10 @@ void GravityGuy::Finalize()
 {
     level->Finalize();
 
-    delete player;
+    delete player1;
+    if (twoPlayers) {
+        delete player2;
+    }
     delete level;
     delete Home::audio;
 }
