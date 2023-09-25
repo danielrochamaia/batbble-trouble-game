@@ -166,8 +166,10 @@
     <ClCompile Include="GravityGuy.cpp" />
     <ClCompile Include="Home.cpp" />
     <ClCompile Include="Image.cpp" />
+    <ClCompile Include="Item.cpp" />
     <ClCompile Include="Level1.cpp" />
     <ClCompile Include="Level2.cpp" />
+    <ClCompile Include="Mouse.cpp" />
     <ClCompile Include="Object.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Renderer.cpp" />
@@ -194,6 +196,8 @@
     <ClInclude Include="Geometry.h" />
     <ClInclude Include="Graphics.h" />
     <ClInclude Include="GravityGuy.h" />
+    <ClInclude Include="Item.h" />
+    <ClInclude Include="Mouse.h" />
     <ClInclude Include="Weapon.h" />
     <ClInclude Include="Home.h" />
     <ClInclude Include="Image.h" />
