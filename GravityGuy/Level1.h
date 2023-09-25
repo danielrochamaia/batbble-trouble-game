@@ -26,10 +26,11 @@ class Level1 : public Game
 {
 private:
     Background* backg = nullptr;   // pano de fundo animado
-    Image* redBall = nullptr;               // grande fila de tartarugas
 
 public:
     static Scene* scene;           // cena do nível
+    static Image* redBall;      // grande fila de tartarugas
+
     static bool gameover;
     void Init();                    // inicialização do nível
     void Update();                  // atualiza lógica do jogo

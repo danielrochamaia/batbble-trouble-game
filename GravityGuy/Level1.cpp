@@ -17,8 +17,6 @@
 #include "Player.h"
 #include "Background.h"
 #include "Ball.h"
-#include "Moldura.h"
-#include "Engine.h"
 
 #include <string>
 #include <fstream>
@@ -30,6 +28,8 @@ using std::string;
 // Inicializa membros estáticos da classe
 
 Scene * Level1::scene = nullptr;
+Image* Level1::redBall = nullptr;
+
 bool Level1::gameover = false;
 // ------------------------------------------------------------------------------
 
@@ -67,7 +67,7 @@ void Level1::Init()
     //ball->MoveTo(window->CenterX(), window->CenterY());
     //ball->BBox(new Circle(72.0f));
     Ball * ball = new Ball(redBall, BALLGG1);
-    scene->Add(ball, MOVING);
+    scene->Add(ball, STATIC);
 
     
     //moldura = new Moldura(new Image(""), 0, CIMA);

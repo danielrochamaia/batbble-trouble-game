@@ -27,10 +27,10 @@ class Ball : public Object
 private:
     Sprite* sprite;            // sprite do bloco
     Vector speed;
+    uint state = 0;
 
 public:
 
-    static Image* image;
 
 
     Ball(Image* img, uint tipo);         // construtor
