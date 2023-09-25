@@ -19,7 +19,7 @@
 
 Ball::Ball(Image* img, uint tipo)
 {
-
+    raio = 73.0;
     // tipo do objeto
     type = tipo;
 
@@ -32,11 +32,23 @@ Ball::Ball(Image* img, uint tipo)
         speed.RotateTo(45.0f);
         speed.ScaleTo(200.0f);
 
-        MoveTo(window->CenterX(), window->CenterY());
+        // move para posição
+
+        BBox(new Circle(img->Height() / 2.0f));
+
+    }
+
+    if (type == BALLGG2)
+    {
+        // sprite do bloco
+
+        speed.RotateTo(135.0f);
+        speed.ScaleTo(200.0f);
 
         // move para posição
 
         BBox(new Circle(img->Height() / 2.0f));
+
     }
 
     if (type == BALLG1)
@@ -49,7 +61,9 @@ Ball::Ball(Image* img, uint tipo)
 
         // move para posição
 
-        BBox(new Circle(img->Height() / 4.0f));
+        BBox(new Circle(img->Height() / 2.0f));
+
+        raio = 36.5f;
     }
 
     if (type == BALLG2)
@@ -64,7 +78,9 @@ Ball::Ball(Image* img, uint tipo)
         // move para posição
         //MoveTo(obj->X(), obj->Y() - 25);
 
-        BBox(new Circle(img->Height() / 4.0f));
+        BBox(new Circle(img->Height() / 2.0f));
+
+        raio = 36.5f;
     }
 
     if (type == BALLM1)
@@ -73,12 +89,15 @@ Ball::Ball(Image* img, uint tipo)
 
         speed.RotateTo(45.0f);
         speed.ScaleTo(200.0f);
+        Scale(0.25f);
 
         // move para posição
         //MoveTo(obj->X(), obj->Y());
         //this->Scale(obj->Scale() * 0.5f);
 
-        BBox(new Circle(72.0f));
+        BBox(new Circle(img->Height() / 2.0f));
+
+        raio = 18.25f;
     }
 
     if (type == BALLM2)
@@ -87,12 +106,16 @@ Ball::Ball(Image* img, uint tipo)
 
         speed.RotateTo(135.0f);
         speed.ScaleTo(200.0f);
+        Scale(0.25f);
 
         // move para posição
         //MoveTo(obj->X(), obj->Y());
        // this->Scale(obj->Scale() * 0.5f);
 
-        BBox(new Circle(72.0f));
+        BBox(new Circle(img->Height() / 2.0f));
+
+        raio = 18.25f;
+
     }
 
     if (type == BALLP1)
@@ -102,11 +125,14 @@ Ball::Ball(Image* img, uint tipo)
         speed.RotateTo(45.0f);
         speed.ScaleTo(200.0f);
         //this->Scale(obj->Scale() * 0.5f);
+        Scale(0.125f);
 
         // move para posição
         //MoveTo(obj->X(), obj->Y());
 
-        BBox(new Circle(72.0f));
+        BBox(new Circle(img->Height() / 2.0f));
+
+        raio = 9.125f;
     }
 
     if (type == BALLP2)
@@ -116,13 +142,15 @@ Ball::Ball(Image* img, uint tipo)
         speed.RotateTo(135.0f);
         speed.ScaleTo(200.0f);
         //this->Scale(obj->Scale() * 0.5f);
+        Scale(0.125f);
 
         // move para posição
         //MoveTo(obj->X(), obj->Y());
 
-        BBox(new Circle(72.0f));
-    }
+        BBox(new Circle(img->Height() / 2.0f));
 
+        raio = 9.125f;
+    }
 
 
 }
@@ -140,22 +168,53 @@ void Ball::Update()
 {
 
     if (state == 1) {
-        Ball* ball = new Ball(Level1::redBall, BALLG1);
-        ball->MoveTo(x, y - 25);
-        Level1::scene->Add(ball, STATIC);
-        ball = new Ball(Level1::redBall, BALLG2);
-        ball->MoveTo(x, y - 25);
-        Level1::scene->Add(ball, STATIC);
-        Level1::scene->Delete();
+
+        if (type == BALLGG1 || type == BALLGG2) 
+        {
+            Ball* ball = new Ball(Level1::redBall, BALLG1);
+            ball->MoveTo(x, y - 25);
+            Level1::scene->Add(ball, STATIC);
+            ball = new Ball(Level1::redBall, BALLG2);
+            ball->MoveTo(x, y - 25);
+            Level1::scene->Add(ball, STATIC);
+            Level1::scene->Delete();
+        }
+
+        if (type == BALLG1 || type == BALLG2)
+        {
+            Ball* ball = new Ball(Level1::redBall, BALLM1);
+            ball->MoveTo(x, y - 25);
+            Level1::scene->Add(ball, STATIC);
+            ball = new Ball(Level1::redBall, BALLM2);
+            ball->MoveTo(x, y - 25);
+            Level1::scene->Add(ball, STATIC);
+            Level1::scene->Delete();
+        }
+
+        if (type == BALLM1 || type == BALLM2)
+        {
+            Ball* ball = new Ball(Level1::redBall, BALLP1);
+            ball->MoveTo(x, y - 25);
+            Level1::scene->Add(ball, STATIC);
+            ball = new Ball(Level1::redBall, BALLP2);
+            ball->MoveTo(x, y - 25);
+            Level1::scene->Add(ball, STATIC);
+            Level1::scene->Delete();
+        }
+
+        if (type == BALLP1 || type == BALLP2)
+        {
+            Level1::scene->Delete();
+        }
     }
 
     // Verifica em qual parede a bola bateu e trata a relação de forças
-    if (X() < 74.0f)
+    if (X() <= raio)
     {
         // Tratamento baseado se a bola veio por cima ou por baixo na parede da esquerda
         if (speed.Angle() <= 180.0f)
         {
-            MoveTo(74.0f, y);
+            MoveTo(raio, y);
             speed.RotateTo(180.0f - speed.Angle());
             Vector gravity{ 270.0f, 200.0f * gameTime };
             // adiciona gravidade ao vetor velocidade
@@ -164,7 +223,7 @@ void Ball::Update()
         }
         else
         {
-            MoveTo(74.0f, y);
+            MoveTo(raio, y);
             speed.RotateTo(540.0f - speed.Angle());
             Vector gravity{ 270.0f, 200.0f * gameTime };
             // adiciona gravidade ao vetor velocidade
@@ -172,12 +231,12 @@ void Ball::Update()
             Translate(speed.XComponent() * gameTime, speed.YComponent() * gameTime);
         }
     }
-    else if(X() > window->Width() - 74.0f)
+    else if(X() >= window->Width() - raio)
     {
         // Tratamento baseado se a bola veio por cima ou por baixo na parede da direita
         if (speed.Angle() <= 90.0f) 
         {
-            MoveTo(window->Width() - 74.0f, y);
+            MoveTo(window->Width() - raio, y);
             speed.RotateTo(180.0f - speed.Angle());
             Vector gravity{ 270.0f, 200.0f * gameTime };
             // adiciona gravidade ao vetor velocidade
@@ -186,7 +245,7 @@ void Ball::Update()
         }
         else 
         {
-            MoveTo(window->Width() - 74.0f, y);
+            MoveTo(window->Width() - raio, y);
             speed.RotateTo(540.0f - speed.Angle());
             Vector gravity{ 270.0f, 200.0f * gameTime };
             // adiciona gravidade ao vetor velocidade
@@ -197,7 +256,7 @@ void Ball::Update()
     else if(Y() < 0)
     {
         // SEM USO ATÉ O MOMENTO!
-        MoveTo(x, window->Height() - 74.0f);
+        MoveTo(x, window->Height() - raio);
         speed.RotateTo(360.0f - speed.Angle());
         Vector gravity{ 270.0f, 200.0f * gameTime };
 
@@ -205,10 +264,10 @@ void Ball::Update()
         speed.Add(gravity);
         Translate(speed.XComponent() * gameTime, speed.YComponent() * gameTime);
     }
-    else if(Y() > window->Height() - 74.0f)
+    else if(Y() >= window->Height() - raio)
     {
         // Tratamento da bola batendo no chão
-         MoveTo(x, window->Height() - 80.0f);
+         MoveTo(x, window->Height() - raio - 5);
          speed.RotateTo(360.0f - speed.Angle());
          Vector gravity{ 270.0f, 200.0f * gameTime };
 

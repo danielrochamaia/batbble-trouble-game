@@ -67,6 +67,7 @@ void Level1::Init()
     //ball->MoveTo(window->CenterX(), window->CenterY());
     //ball->BBox(new Circle(72.0f));
     Ball * ball = new Ball(redBall, BALLGG1);
+    ball->MoveTo(window->CenterX(), window->CenterX());
     scene->Add(ball, STATIC);
 
     

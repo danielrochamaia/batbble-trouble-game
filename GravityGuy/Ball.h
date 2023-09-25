@@ -28,6 +28,7 @@ private:
     Sprite* sprite;            // sprite do bloco
     Vector speed;
     uint state = 0;
+    float raio = 0;
 
 public:
 
