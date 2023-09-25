@@ -40,7 +40,7 @@ Ball::Ball(Image* img, float velocidade, uint tipo)
     velY = -300;
 
     // tipo do objeto
-    type = tipo;
+    type = BOLA;
 }
 
 // ---------------------------------------------------------------------------------
@@ -104,6 +104,11 @@ void Ball::OnCollision(Object* obj)
     {
         //MoveTo(x-1, y);
         velX = -velX;
+    }
+
+    if (obj->Type() == PLAYER)
+    {
+        Level1::gameover = true;
     }
 
 }

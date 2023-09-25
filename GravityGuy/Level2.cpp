@@ -26,7 +26,7 @@ using std::string;
 // Inicializa membros estáticos da classe
 
 Scene* Level2::scene = nullptr;
-
+bool Level2::gameover = false;
 // ------------------------------------------------------------------------------
 
 void Level2::Init()
@@ -89,13 +89,22 @@ void Level2::Init()
 
 void Level2::Update()
 {
+    if (gameover)
+    {
+        Home::audio->Stop(MUSIC2);
+        GravityGuy::NextLevel<GameOver>();
+        GravityGuy::player1->disparoPlayer = false;
+        GravityGuy::player2->disparoPlayer = false;
+        GravityGuy::player1->Reset();
+        gameover = false;
+    }
     if (window->KeyPress(VK_ESCAPE) || GravityGuy::player1->Level() == 2 || window->KeyPress('N'))
     {
         Home::audio->Stop(MUSIC2);
         GravityGuy::NextLevel<Home>();
         GravityGuy::player1->disparoPlayer = false;
         GravityGuy::player2->disparoPlayer = false;
-        //GravityGuy::player->Reset();
+        GravityGuy::player1->Reset();
     }
     else
     {

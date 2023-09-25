@@ -40,7 +40,7 @@ void GravityGuy::Init()
     player1 = new Player("Resources/bat-flow-2.png");
     if (twoPlayers == true) {
         player2 = new Player("Resources/robin-flow-2.png");
-        player2->MoveTo(player1->X() + 100, player1->Y());
+        player2->MoveTo(player1->X() + 400, player1->Y());
     }
 
     // inicializa nível de abertura do jogo

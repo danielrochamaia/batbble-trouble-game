@@ -62,6 +62,7 @@ public:
     uint nivelAtual;
     bool disparoPlayer;
 
+    void Reset();                       // volta ao estado inicial
     int Level();                        // último nível finalizado
     float Bottom();                     // coordenadas da base
     float Top();                        // coordenadas do topo

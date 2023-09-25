@@ -15,14 +15,18 @@
 #include "Weapon.h"
 #include "Level1.h"
 #include "Level2.h"
+#include "Home.h"
+#include "Engine.h"
 
 // ---------------------------------------------------------------------------------
 const double Player::PIXEL_PER_METER = 50;
+bool twoPlayers;
 Player::Player(string src)
 {
     tileset = new TileSet(src, 50, 101, 3, 12);
     anim = new Animation(tileset, 0.120f, true);
     velx = 6;
+    type = PLAYER;
     // sequências de animação do player
 
     uint seqIdle[1] = { 4 };
@@ -49,7 +53,8 @@ Player::Player(string src)
     level = 0;
 
     // posição inicial
-    MoveTo(window->CenterX(), 670, Layer::FRONT);
+    MoveTo(300, 670, Layer::FRONT);
+    twoPlayers = GravityGuy::twoPlayers;
 }
 
 // ---------------------------------------------------------------------------------
@@ -180,36 +185,47 @@ void Player::Update()
     #pragma endregion
 
     #pragma region Movimentação Player 2
-    if (window->KeyDown('A')) {
-        GravityGuy::player2->state = RUN;
-        GravityGuy::player2->isMovingLeft = true;
-        GravityGuy::player2->Translate(-velx * PIXEL_PER_METER * gameTime, 0);
-    }
-    if (window->KeyDown('D')) {
-        GravityGuy::player2->state = RUN;
-        GravityGuy::player2->isMovingLeft = false;
-        GravityGuy::player2->Translate(velx * PIXEL_PER_METER * gameTime, 0);
-    }
+    if (twoPlayers) {
+        if (window->KeyDown('A')) {
+            GravityGuy::player2->state = RUN;
+            GravityGuy::player2->isMovingLeft = true;
+            GravityGuy::player2->Translate(-velx * PIXEL_PER_METER * gameTime, 0);
+        }
+        if (window->KeyDown('D')) {
+            GravityGuy::player2->state = RUN;
+            GravityGuy::player2->isMovingLeft = false;
+            GravityGuy::player2->Translate(velx * PIXEL_PER_METER * gameTime, 0);
+        }
 
-    if (GravityGuy::player2->state % 2 == 0) {
-        if (GravityGuy::player2->isMovingLeft)
-            GravityGuy::player2->state += 1;
-    }
-    else if (!GravityGuy::player2->isMovingLeft) {
-        GravityGuy::player2->state -= 1;
-    }
+        if (GravityGuy::player2->state % 2 == 0) {
+            if (GravityGuy::player2->isMovingLeft)
+                GravityGuy::player2->state += 1;
+        }
+        else if (!GravityGuy::player2->isMovingLeft) {
+            GravityGuy::player2->state -= 1;
+        }
 
-    GravityGuy::player2->anim->Select(GravityGuy::player2->state);
+        GravityGuy::player2->anim->Select(GravityGuy::player2->state);
 
-    if (!GravityGuy::player2->isClimbing) {
-        if (GravityGuy::player2->isMovingLeft)
-            GravityGuy::player2->state = IDLELEFT;
-        else
-            GravityGuy::player2->state = IDLE;
-        GravityGuy::player2->anim->NextFrame();
+        if (!GravityGuy::player2->isClimbing) {
+            if (GravityGuy::player2->isMovingLeft)
+                GravityGuy::player2->state = IDLELEFT;
+            else
+                GravityGuy::player2->state = IDLE;
+            GravityGuy::player2->anim->NextFrame();
+        }
     }
     #pragma endregion
 
+}
+
+void Player::Reset()
+{
+    // volta ao estado inicial
+    GravityGuy::player1->MoveTo(300, 670, Layer::FRONT);
+    if (twoPlayers) {
+        GravityGuy::player2->MoveTo(GravityGuy::player1->X() + 400, GravityGuy::player1->Y());
+    }
 }
 
 void Player::Draw()

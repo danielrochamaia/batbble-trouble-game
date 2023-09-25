@@ -21,6 +21,8 @@ Weapon::Weapon(Player* player, Image* img)
     MoveTo(player->X(), 800.00);
 
     BBox(new Rect(-25.0,-400 , 25.0, 400));
+
+    type = ARPAO;
 }
 
 Weapon::~Weapon()

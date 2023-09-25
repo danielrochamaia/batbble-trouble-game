@@ -26,6 +26,7 @@ enum TypeObjects
     ARPAO,
     AMIGAVEL,
     INIMIGO,
+    BOLA,
     CIMA,
     BAIXO,
     ESQUERDA,

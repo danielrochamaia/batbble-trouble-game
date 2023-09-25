@@ -19,6 +19,7 @@
 #include "Background.h"
 #include "Ball.h"
 #include "Moldura.h"
+#include "Engine.h"
 
 #include <string>
 #include <fstream>
@@ -29,7 +30,7 @@ using std::string;
 // Inicializa membros estáticos da classe
 
 Scene * Level1::scene = nullptr;
-
+bool Level1::gameover = false;
 // ------------------------------------------------------------------------------
 
 void Level1::Init()
@@ -122,11 +123,23 @@ void Level1::Init()
 
 void Level1::Update()
 {
-    if (window->KeyPress(VK_ESCAPE))
+
+    if (gameover)
+    {
+        Home::audio->Stop(MUSIC1);
+        GravityGuy::NextLevel<GameOver>();
+        GravityGuy::player1->disparoPlayer = false;
+        GravityGuy::player2->disparoPlayer = false;
+        GravityGuy::player1->Reset();
+        gameover = false;
+    }
+    else if (window->KeyPress(VK_ESCAPE))
     {
         Home::audio->Stop(MUSIC1);
         GravityGuy::NextLevel<Home>();
-        //GravityGuy::player->Reset();
+        GravityGuy::player1->disparoPlayer = false;
+        GravityGuy::player2->disparoPlayer = false;
+        GravityGuy::player1->Reset();
     }
     else if (GravityGuy::player1->Level() == 1 || window->KeyPress('N'))
     {
