@@ -20,6 +20,7 @@
 #include "TileSet.h"
 #include "Animation.h"
 #include "Audio.h"
+#include "Mouse.h"
 
 enum Sounds { HOME, MUSIC1, MUSIC2, GAMEOVER, TRANSITION };
 // ------------------------------------------------------------------------------
@@ -30,6 +31,7 @@ private:
     Sprite * backg = nullptr;       // pano de fundo
     TileSet * tileset = nullptr;    // tileset da animação
     Animation * anim = nullptr;     // animação do menu
+    Mouse* mouse = nullptr;         // objeto mouse
 
 public:
     static Audio* audio;           // sistema de áudio

@@ -62,6 +62,8 @@ void Home::Init()
     anim = new Animation(tileset, 0.180f, true);
     audio->Play(HOME, true);
     audio->Volume(HOME, 0.05f);
+
+    mouse = new Mouse();
 }
 
 // ------------------------------------------------------------------------------
