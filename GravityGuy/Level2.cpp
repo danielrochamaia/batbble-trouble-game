@@ -14,7 +14,6 @@
 #include "Level2.h"
 #include "GameOver.h"
 #include "Player.h"
-#include "Platform.h"
 #include "Background.h"
 
 #include <string>

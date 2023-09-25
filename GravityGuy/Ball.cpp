@@ -264,13 +264,13 @@ void Ball::Update()
 
 void Ball::OnCollision(Object* obj)
 {
-    if (obj->Type() == PLAYER) {
-       Ball* ball = new Ball(image, this, BALLG1);
-       Level1::scene->Add(ball, MOVING);
-       ball = new Ball(image, this, BALLG2);
-       Level1::scene->Add(ball, MOVING);
-       Level1::scene->Delete();
-    }
+    //if (obj->Type() == PLAYER) {
+    //   Ball* ball = new Ball(image, this, BALLG1);
+    //   Level1::scene->Add(ball, MOVING);
+    //   ball = new Ball(image, this, BALLG2);
+    //   Level1::scene->Add(ball, MOVING);
+    //   Level1::scene->Delete();
+    //}
 
     if (obj->Type() == PLAYER)
     {
