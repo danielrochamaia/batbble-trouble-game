@@ -36,7 +36,7 @@ void GravityGuy::Init()
     viewBBox = false;
 
     // cria jogador
-    twoPlayers = true;
+    twoPlayers = false;
     player1 = new Player("Resources/bat-flow-2.png");
     if (twoPlayers == true) {
         player2 = new Player("Resources/robin-flow-2.png");

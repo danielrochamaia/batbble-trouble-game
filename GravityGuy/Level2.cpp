@@ -93,7 +93,10 @@ void Level2::Update()
         Home::audio->Stop(MUSIC2);
         GravityGuy::NextLevel<GameOver>();
         GravityGuy::player1->disparoPlayer = false;
-        GravityGuy::player2->disparoPlayer = false;
+        if (GravityGuy::twoPlayers) {
+            scene->Remove(GravityGuy::player2, MOVING);
+            GravityGuy::player2->disparoPlayer = false;
+        }
         GravityGuy::player1->Reset();
         gameover = false;
     }
@@ -102,7 +105,10 @@ void Level2::Update()
         Home::audio->Stop(MUSIC2);
         GravityGuy::NextLevel<Home>();
         GravityGuy::player1->disparoPlayer = false;
-        GravityGuy::player2->disparoPlayer = false;
+        if (GravityGuy::twoPlayers) {
+            scene->Remove(GravityGuy::player2, MOVING);
+            GravityGuy::player2->disparoPlayer = false;
+        }
         GravityGuy::player1->Reset();
     }
     else

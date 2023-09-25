@@ -52,7 +52,7 @@ void Weapon::Update()
     Translate(0, velY * gameTime);
 
     //// destrói ao sair da janela
-    if (y + 200 < 0) {
+    if (y < 0) {
         jogador->disparoPlayer = false;
     }
 }

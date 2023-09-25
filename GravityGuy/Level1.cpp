@@ -29,7 +29,6 @@ using std::string;
 
 Scene * Level1::scene = nullptr;
 Image* Level1::redBall = nullptr;
-
 bool Level1::gameover = false;
 // ------------------------------------------------------------------------------
 
@@ -131,7 +130,10 @@ void Level1::Update()
         Home::audio->Stop(MUSIC1);
         GravityGuy::NextLevel<GameOver>();
         GravityGuy::player1->disparoPlayer = false;
-        GravityGuy::player2->disparoPlayer = false;
+        if(GravityGuy::twoPlayers) {
+            scene->Remove(GravityGuy::player2, MOVING);
+            GravityGuy::player2->disparoPlayer = false;
+        }
         GravityGuy::player1->Reset();
         gameover = false;
     }
@@ -140,7 +142,10 @@ void Level1::Update()
         Home::audio->Stop(MUSIC1);
         GravityGuy::NextLevel<Home>();
         GravityGuy::player1->disparoPlayer = false;
-        GravityGuy::player2->disparoPlayer = false;
+        if (GravityGuy::twoPlayers) {
+            scene->Remove(GravityGuy::player2, MOVING);
+            GravityGuy::player2->disparoPlayer = false;
+        }
         GravityGuy::player1->Reset();
     }
     else if (GravityGuy::player1->Level() == 1 || window->KeyPress('N'))
