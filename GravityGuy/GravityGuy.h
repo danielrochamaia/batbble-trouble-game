@@ -24,14 +24,9 @@
 enum Sounds {MENU, MUSIC, TRANSITION};
 enum TypeObjects
 {
-    PLAYER,
     RIO,
     AMIGAVEL,
     INIMIGO,
-    CIMA,
-    BAIXO,
-    ESQUERDA,
-    DIREITA
 };
 
 // ------------------------------------------------------------------------------

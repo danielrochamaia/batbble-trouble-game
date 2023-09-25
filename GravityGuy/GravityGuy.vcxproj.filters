@@ -96,9 +96,6 @@
     <ClCompile Include="Level1.cpp">
       <Filter>Game\Arquivos de Origem</Filter>
     </ClCompile>
-    <ClCompile Include="Platform.cpp">
-      <Filter>Game\Arquivos de Origem</Filter>
-    </ClCompile>
     <ClCompile Include="Player.cpp">
       <Filter>Game\Arquivos de Origem</Filter>
     </ClCompile>
@@ -110,12 +107,6 @@
     </ClCompile>
     <ClCompile Include="Vector.cpp">
       <Filter>Engine\Arquivos de Origem</Filter>
-    </ClCompile>
-    <ClCompile Include="Moldura.h">
-      <Filter>Game\Arquivos de Cabeçalho</Filter>
-    </ClCompile>
-    <ClCompile Include="Moldura.cpp">
-      <Filter>Game\Arquivos de Origem</Filter>
     </ClCompile>
     <ClCompile Include="Weapon.cpp">
       <Filter>Game\Arquivos de Origem</Filter>
@@ -192,9 +183,6 @@
       <Filter>Game\Arquivos de Cabeçalho</Filter>
     </ClInclude>
     <ClInclude Include="Level1.h">
-      <Filter>Game\Arquivos de Cabeçalho</Filter>
-    </ClInclude>
-    <ClInclude Include="Platform.h">
       <Filter>Game\Arquivos de Cabeçalho</Filter>
     </ClInclude>
     <ClInclude Include="Player.h">

@@ -15,13 +15,12 @@
 #include "Level2.h"
 #include "GameOver.h"
 #include "Player.h"
-#include "Platform.h"
 #include "Background.h"
 #include "Ball.h"
-#include "Moldura.h"
 
 #include <string>
 #include <fstream>
+#include "Enums.h"
 using std::ifstream;
 using std::string;
 
@@ -55,9 +54,7 @@ void Level1::Init()
 
     redBall = new Image("Resources/bola-g.png");
     
-    Ball * ball = new Ball(redBall, -200, INIMIGO);
-    ball->MoveTo(window->CenterX(), window->CenterY());
-    ball->BBox(new Circle(72.0f));
+    Ball * ball = new Ball(redBall, BALLGG1);
     scene->Add(ball, MOVING);
 
     

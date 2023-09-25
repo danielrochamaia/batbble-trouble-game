@@ -11,7 +11,6 @@
 
 #include "Player.h"
 #include "GravityGuy.h"
-#include "Platform.h"
 #include "Weapon.h"
 #include "Level1.h"
 
