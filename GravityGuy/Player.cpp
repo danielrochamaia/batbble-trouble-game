@@ -16,6 +16,7 @@
 #include "Level2.h"
 #include "Home.h"
 #include "Engine.h"
+#include "Enums.h"
 
 // ---------------------------------------------------------------------------------
 const double Player::PIXEL_PER_METER = 50;
@@ -118,34 +119,34 @@ void Player::Update()
     #pragma region DisparoArma
     if (window->KeyPress(VK_SPACE)) {
         
-        Weapon* disparo = new Weapon(GravityGuy::player1, weapon);
+        Weapon* disparo = new Weapon(GravityGuy::player1, weapon, ARPAO1);
 
         if (nivelAtual == 1 && GravityGuy::player1->disparoPlayer == false) {
             
-            Level1::scene->Add(disparo, STATIC);
+            Level1::scene->Add(disparo, MOVING);
             GravityGuy::player1->disparoPlayer = true;
         }
 
         if (nivelAtual == 2 && disparoPlayer == false) {
            
-            Level2::scene->Add(disparo, STATIC);
+            Level2::scene->Add(disparo, MOVING);
             GravityGuy::player1->disparoPlayer = true;
         }
     }
 
     if (window->KeyPress('Q')) {
 
-        Weapon* disparo = new Weapon(GravityGuy::player2, weapon);
+        Weapon* disparo = new Weapon(GravityGuy::player2, weapon, ARPAO2);
 
         if (nivelAtual == 1 && GravityGuy::player2->disparoPlayer == false) {
 
-            Level1::scene->Add(disparo, STATIC);
+            Level1::scene->Add(disparo, MOVING);
             GravityGuy::player2->disparoPlayer = true;
         }
 
         if (nivelAtual == 2 && GravityGuy::player2->disparoPlayer == false) {
 
-            Level2::scene->Add(disparo, STATIC);
+            Level2::scene->Add(disparo, MOVING);
             GravityGuy::player2->disparoPlayer = true;
         }
     }

@@ -288,17 +288,21 @@ void Ball::Update()
 
 void Ball::OnCollision(Object* obj)
 {
-    if (obj->Type() == PLAYER) {
-       //Ball* ball = new Ball(Level1::redBall, BALLG1);
-       //MoveTo(x, y - 25);
-       //Level1::scene->Add(ball, STATIC);
-       //Level1::scene->Delete();
+    if (obj->Type() == ARPAO1) {
         state = 1;
+        GravityGuy::player1->disparoPlayer = false;
 
     }
-    //if (obj->Type() == PLAYER)
-    //{
-    //    Level1::gameover = true;
-    //}
+
+    if (obj->Type() == ARPAO2) {
+        state = 1;
+        GravityGuy::player2->disparoPlayer = false;
+
+    }
+
+    if (obj->Type() == PLAYER)
+    {
+        Level1::gameover = true;
+    }
 }
 // ---------------------------------------------------------------------------------

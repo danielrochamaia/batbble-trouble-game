@@ -23,6 +23,7 @@ using namespace std;
 Audio* Home::audio = nullptr;
 void Home::Init()
 {
+    delete audio;
     //audio = nullptr;
     //random_device rd;
     //mt19937 mt(rd());
