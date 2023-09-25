@@ -18,12 +18,15 @@
 #include <random>
 using namespace std;
 
+// ------------------------------------------------------------------------------
+
+Audio* Home::audio = nullptr;
 
 // ------------------------------------------------------------------------------
-Audio* Home::audio = nullptr;
+
 void Home::Init()
 {
-    delete audio;
+    //delete audio;
     //audio = nullptr;
     //random_device rd;
     //mt19937 mt(rd());
@@ -57,6 +60,8 @@ void Home::Init()
     audio->Add(MUSIC2, "Resources/sons/" + musicas[7] + ".wav");
     audio->Add(TRANSITION, "Resources/Transition.wav");
 
+    scene = new Scene();
+
     backg = new Sprite("Resources/menu-background.jpg");
     //backg = new Sprite("Resources/menu.png");
     tileset = new TileSet("Resources/PressEnter.png", 72, 48, 1, 5);
@@ -65,26 +70,65 @@ void Home::Init()
     audio->Volume(HOME, 0.05f);
 
     mouse = new Mouse();
+    scene->Add(mouse, MOVING);
+
+    // cria itens de menu
+    menu[0] = new Item(900, 250, SINGLE, "Resources/SinglePlayer.png");
+    menu[1] = new Item(900, 305, MULTI, "Resources/MultiPlayer.png");
+    menu[2] = new Item(900, 360, EXIT, "Resources/ExitGame.png");
+
+    // adiciona itens na cena
+    for (int i = 0; i < MaxItens; ++i)
+        scene->Add(menu[i], STATIC);
+
 }
 
 // ------------------------------------------------------------------------------
 
 void Home::Update()
 {
-    // sai com o pressionar do ESC
-    if (window->KeyPress(VK_ESCAPE))
+
+    // fecha a janela ao pressionar ESC
+    if (window->KeyDown(VK_ESCAPE))
         window->Close();
-    
-    // se a tecla ENTER for pressionada
-    if (window->KeyPress(VK_RETURN))
+
+    // atualiza objeto mouse
+    mouse->Update();
+
+    // destaca item selecionado
+    for (int i = 0; i < MaxItens; ++i)
     {
-        audio->Stop(HOME);
-        GravityGuy::NextLevel<Level1>();
+        if (scene->Collision(mouse, menu[i]))
+        {
+            menu[i]->Select();
+            selected = menu[i];
+
+                if (mouse->Clicked())
+                {
+                    switch (menu[i]->Type())
+                    {
+                    case SINGLE:
+                    case MULTI:
+                        audio->Stop(HOME);
+                        GravityGuy::NextLevel<Level1>();
+                    break;
+                    case EXIT: window->Close(); break;
+                    }
+                }
+        }
+        else
+        {
+            menu[i]->UnSelect();
+        }
+
+            menu[i]->Update();
     }
-    else
-    {
-        anim->NextFrame();
+
+    // habilita/desabilita bounding box
+    if (window->KeyPress('B')) {
+        viewBBox = !viewBBox;
     }
+
 }
 
 // ------------------------------------------------------------------------------
@@ -93,6 +137,14 @@ void Home::Draw()
 {
     backg->Draw(window->CenterX() + 220, window->CenterY(), Layer::BACK);
     anim->Draw(545, 275);
+
+    // desenha itens do menu
+    scene->Draw();
+
+    // desenha bounding box dos menus
+    if (viewBBox)
+        scene->DrawBBox();
+
 }
 
 // ------------------------------------------------------------------------------
@@ -102,6 +154,7 @@ void Home::Finalize()
     delete anim;
     delete tileset;
     delete backg;
+    delete scene;
 }
 
 // ------------------------------------------------------------------------------
