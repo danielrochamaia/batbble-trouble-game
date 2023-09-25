@@ -28,6 +28,7 @@ using std::string;
 // Inicializa membros estáticos da classe
 
 Scene * Level1::scene = nullptr;
+Image* Level1::redBall = nullptr;
 
 // ------------------------------------------------------------------------------
 
@@ -55,7 +56,7 @@ void Level1::Init()
     redBall = new Image("Resources/bola-g.png");
     
     Ball * ball = new Ball(redBall, BALLGG1);
-    scene->Add(ball, MOVING);
+    scene->Add(ball, STATIC);
 
     
     //Moldura * moldura = new Moldura(CIMA);

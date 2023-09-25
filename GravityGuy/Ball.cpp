@@ -16,97 +16,58 @@
 
 // ---------------------------------------------------------------------------------
 
-Image* Ball::image = nullptr;
-
 
 Ball::Ball(Image* img, uint tipo)
 {
-    // sprite do bloco
-    sprite = new Sprite(img);
-
-    // imagem guardada
-
-    image = img;
-
-    speed.RotateTo(45.0);
-    speed.ScaleTo(200.0f);
-
-    // move para posição
-    MoveTo(window->CenterX(), window->CenterY());
-
-    BBox(new Circle(img->Height() / 2.0f));
-
-    // tipo do objeto
-    type = tipo;
-}
-
-// ---------------------------------------------------------------------------------
-
-Ball::Ball(Image* img, Object* obj , uint tipo)
-{
 
     // tipo do objeto
     type = tipo;
 
     sprite = new Sprite(img);
 
-    image = img;
-
-
-    if (obj->Type() == BALLGG1)
+    if (type == BALLGG1)
     {
         // sprite do bloco
 
         speed.RotateTo(45.0f);
         speed.ScaleTo(200.0f);
 
+        MoveTo(window->CenterX(), window->CenterY());
+
         // move para posição
-        MoveTo(obj->X(), obj->Y());
 
         BBox(new Circle(img->Height() / 2.0f));
     }
 
-    if (obj->Type() == BALLGG2)
-    {
-        // sprite do bloco
-
-        speed.RotateTo(135.0f);
-        speed.ScaleTo(200.0f);
-
-        // move para posição
-        MoveTo(obj->X(), obj->Y());
-        BBox(new Circle(72.0f));
-    }
-
-    if (obj->Type() == BALLG1)
+    if (type == BALLG1)
     {
         // sprite do bloco
 
         speed.RotateTo(45.0f);
         speed.ScaleTo(200.0f);
-        this->Scale(obj->Scale() * 0.5f);
+        Scale(0.5f);
 
         // move para posição
-        MoveTo(obj->X(), obj->Y());
 
         BBox(new Circle(img->Height() / 4.0f));
     }
 
-    if (obj->Type() == BALLG2)
+    if (type == BALLG2)
     {
         // sprite do bloco
 
         speed.RotateTo(135.0f);
         speed.ScaleTo(200.0f);
-        this->Scale(obj->Scale() * 0.5f);
+        Scale(0.5f);
+        //this->Scale(obj->Scale() * 0.5f);
 
         // move para posição
-        MoveTo(obj->X(), obj->Y());
+        //MoveTo(obj->X(), obj->Y() - 25);
 
         BBox(new Circle(img->Height() / 4.0f));
     }
 
-    if (obj->Type() == BALLM1)
+    if (type == BALLM1)
     {
         // sprite do bloco
 
@@ -114,13 +75,13 @@ Ball::Ball(Image* img, Object* obj , uint tipo)
         speed.ScaleTo(200.0f);
 
         // move para posição
-        MoveTo(obj->X(), obj->Y());
-        this->Scale(obj->Scale() * 0.5f);
+        //MoveTo(obj->X(), obj->Y());
+        //this->Scale(obj->Scale() * 0.5f);
 
         BBox(new Circle(72.0f));
     }
 
-    if (obj->Type() == BALLM2)
+    if (type == BALLM2)
     {
         // sprite do bloco
 
@@ -128,36 +89,36 @@ Ball::Ball(Image* img, Object* obj , uint tipo)
         speed.ScaleTo(200.0f);
 
         // move para posição
-        MoveTo(obj->X(), obj->Y());
-        this->Scale(obj->Scale() * 0.5f);
+        //MoveTo(obj->X(), obj->Y());
+       // this->Scale(obj->Scale() * 0.5f);
 
         BBox(new Circle(72.0f));
     }
 
-    if (obj->Type() == BALLP1)
+    if (type == BALLP1)
     {
         // sprite do bloco
         
         speed.RotateTo(45.0f);
         speed.ScaleTo(200.0f);
-        this->Scale(obj->Scale() * 0.5f);
+        //this->Scale(obj->Scale() * 0.5f);
 
         // move para posição
-        MoveTo(obj->X(), obj->Y());
+        //MoveTo(obj->X(), obj->Y());
 
         BBox(new Circle(72.0f));
     }
 
-    if (obj->Type() == BALLP2)
+    if (type == BALLP2)
     {
         // sprite do bloco
 
         speed.RotateTo(135.0f);
         speed.ScaleTo(200.0f);
-        this->Scale(obj->Scale() * 0.5f);
+        //this->Scale(obj->Scale() * 0.5f);
 
         // move para posição
-        MoveTo(obj->X(), obj->Y());
+        //MoveTo(obj->X(), obj->Y());
 
         BBox(new Circle(72.0f));
     }
@@ -170,14 +131,23 @@ Ball::Ball(Image* img, Object* obj , uint tipo)
 
 Ball::~Ball()
 {
-    delete sprite;
-    delete image;   
+    delete sprite;   
 }
 
 // ---------------------------------------------------------------------------------
 
 void Ball::Update()
 {
+
+    if (state == 1) {
+        Ball* ball = new Ball(Level1::redBall, BALLG1);
+        ball->MoveTo(x, y - 25);
+        Level1::scene->Add(ball, STATIC);
+        ball = new Ball(Level1::redBall, BALLG2);
+        ball->MoveTo(x, y - 25);
+        Level1::scene->Add(ball, STATIC);
+        Level1::scene->Delete();
+    }
 
     // Verifica em qual parede a bola bateu e trata a relação de forças
     if (X() < 74.0f)
@@ -246,11 +216,6 @@ void Ball::Update()
          speed.Add(gravity);
          Translate(speed.XComponent() * gameTime, speed.YComponent() * gameTime);
 
-              Ball* ball = new Ball(image, this, BALLG1);
-              Level1::scene->Add(ball, MOVING);
-              ball = new Ball(image, this, BALLG2);
-              Level1::scene->Add(ball, MOVING);
-              Level1::scene->Delete();
     }
     else
     {
@@ -265,12 +230,12 @@ void Ball::Update()
 void Ball::OnCollision(Object* obj)
 {
     if (obj->Type() == PLAYER) {
-       Ball* ball = new Ball(image, this, BALLG1);
-       Level1::scene->Add(ball, MOVING);
-       ball = new Ball(image, this, BALLG2);
-       Level1::scene->Add(ball, MOVING);
-       Level1::scene->Delete();
-    }
+       //Ball* ball = new Ball(Level1::redBall, BALLG1);
+       //MoveTo(x, y - 25);
+       //Level1::scene->Add(ball, STATIC);
+       //Level1::scene->Delete();
+        state = 1;
 
+    }
 }
 // ---------------------------------------------------------------------------------
