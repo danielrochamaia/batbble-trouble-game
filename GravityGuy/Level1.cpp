@@ -67,9 +67,26 @@ void Level1::Init()
     //Ball * ball = new Ball(redBall, -200, INIMIGO);
     //ball->MoveTo(window->CenterX(), window->CenterY());
     //ball->BBox(new Circle(72.0f));
-    Ball * ball = new Ball(redBall, BALLGG1);
-    ball->MoveTo(window->CenterX(), window->CenterX());
-    scene->Add(ball, STATIC);
+
+    Ball* ball;
+
+
+
+    if (GravityGuy::twoPlayers) {
+        ball = new Ball(redBall, BALLGG1);
+        ball->MoveTo(700, 200);
+        scene->Add(ball, STATIC);
+
+        ball = new Ball(redBall, BALLGG2);
+        ball->MoveTo(window->CenterX(), window->CenterY());
+        scene->Add(ball, STATIC);
+
+    }
+    else {
+        ball = new Ball(redBall, BALLGG1);
+        ball->MoveTo(350, 350);
+        scene->Add(ball, STATIC);
+    }
 
     
     //moldura = new Moldura(new Image(""), 0, CIMA);

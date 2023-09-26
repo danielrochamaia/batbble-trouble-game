@@ -28,6 +28,7 @@ private:
     Background* backg = nullptr;   // pano de fundo animado
 
 public:
+    static Image* redBall;      // grande fila de tartarugas
     static Scene* scene;           // cena do nível
     static bool gameover;
     void Init();                    // inicialização do nível

@@ -15,7 +15,9 @@
 #include "GameOver.h"
 #include "Player.h"
 #include "Background.h"
+#include "Ball.h"
 
+#include "Enums.h"
 #include <string>
 #include <fstream>
 using std::ifstream;
@@ -25,6 +27,7 @@ using std::string;
 // Inicializa membros estáticos da classe
 
 Scene* Level2::scene = nullptr;
+Image* Level2::redBall = nullptr;
 bool Level2::gameover = false;
 // ------------------------------------------------------------------------------
 
@@ -44,6 +47,50 @@ void Level2::Init()
     if (GravityGuy::twoPlayers) {
         GravityGuy::player2->MoveTo(GravityGuy::player1->X() + 400, GravityGuy::player1->Y());
         scene->Add(GravityGuy::player2, MOVING);
+    }
+
+    redBall = new Image("Resources/bola-g.png");
+    Ball* ball;
+
+    if (GravityGuy::twoPlayers) {
+
+        ball = new Ball(redBall, BALLGG1);
+        ball->MoveTo(450, 450);
+        scene->Add(ball, STATIC);
+
+        ball = new Ball(redBall, BALLGG1);
+        ball->MoveTo(700, 200);
+        scene->Add(ball, STATIC);
+
+        ball = new Ball(redBall, BALLGG2);
+        ball->MoveTo(window->CenterX(), window->CenterY());
+        scene->Add(ball, STATIC);
+
+        ball = new Ball(redBall, BALLM1);
+        ball->MoveTo(200, 350);
+        scene->Add(ball, STATIC);
+
+        ball = new Ball(redBall, BALLM2);
+        ball->MoveTo(700, 250);
+        scene->Add(ball, STATIC);
+    }
+    else {
+
+        ball = new Ball(redBall, BALLGG1);
+        ball->MoveTo(700, 200);
+        scene->Add(ball, STATIC);
+
+        ball = new Ball(redBall, BALLGG2);
+        ball->MoveTo(window->CenterX(), window->CenterY());
+        scene->Add(ball, STATIC);
+
+        ball = new Ball(redBall, BALLM1);
+        ball->MoveTo(200, 500);
+        scene->Add(ball, STATIC);
+
+        ball = new Ball(redBall, BALLM2);
+        ball->MoveTo(700, 350);
+        scene->Add(ball, STATIC);
     }
 
     Home::audio->Play(MUSIC2);
