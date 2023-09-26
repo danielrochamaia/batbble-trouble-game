@@ -63,6 +63,10 @@ void GravityGuy::Update()
         gameover = false;
         Home::audio->Stop(MUSIC1);
         Home::audio->Stop(MUSIC2);
+        player1->disparoPlayer = false;
+        if (twoPlayers) {
+            player2->disparoPlayer = false;
+        }
     }
 
     if (hud->Time() == 0) {

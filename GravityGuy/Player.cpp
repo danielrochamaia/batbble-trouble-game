@@ -184,11 +184,11 @@ void Player::Update()
         GravityGuy::player1->anim->NextFrame();
     }
 
-    if (GravityGuy::player1->X() + GravityGuy::player1->tileset->TileWidth() / 2.0f > window->Width())
-        GravityGuy::player1->Translate(-velx * PIXEL_PER_METER * gameTime, 0);
+    if (GravityGuy::player1->x + GravityGuy::player1->tileset->TileWidth() / 2.0f > window->Width())
+        GravityGuy::player1->MoveTo(window->Width() - GravityGuy::player1->tileset->TileWidth() / 2.0f, GravityGuy::player1->y);
 
-    if (GravityGuy::player1->X() - GravityGuy::player1->tileset->TileWidth() / 2.0f < 0)
-        GravityGuy::player1->Translate(velx * PIXEL_PER_METER * gameTime, 0);
+    if (GravityGuy::player1->x - GravityGuy::player1->tileset->TileWidth() / 2.0f < 0)
+        GravityGuy::player1->MoveTo(GravityGuy::player1->tileset->TileWidth() / 2.0f, GravityGuy::player1->y);
     #pragma endregion
 
     #pragma region Movimentação Player 2
