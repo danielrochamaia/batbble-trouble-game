@@ -131,7 +131,6 @@ void Level1::Update()
         GravityGuy::NextLevel<GameOver>();
         GravityGuy::player1->disparoPlayer = false;
         if(GravityGuy::twoPlayers) {
-            scene->Remove(GravityGuy::player2, MOVING);
             GravityGuy::player2->disparoPlayer = false;
         }
         GravityGuy::player1->Reset();
@@ -143,7 +142,6 @@ void Level1::Update()
         GravityGuy::NextLevel<Home>();
         GravityGuy::player1->disparoPlayer = false;
         if (GravityGuy::twoPlayers) {
-            scene->Remove(GravityGuy::player2, MOVING);
             GravityGuy::player2->disparoPlayer = false;
         }
         GravityGuy::player1->Reset();

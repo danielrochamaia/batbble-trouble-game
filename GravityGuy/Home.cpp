@@ -114,6 +114,7 @@ void Home::Update()
                     break;
                     case EXIT: window->Close(); break;
                     }
+                    break;
                 }
         }
         else

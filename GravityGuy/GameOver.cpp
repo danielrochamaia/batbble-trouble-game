@@ -18,7 +18,7 @@
 
 void GameOver::Init()
 {
-    title = new Sprite("Resources/GameOver.png");
+    title = new Sprite("Resources/OIG.png");
 }
 
 // ----------------------------------------------------------------------
@@ -33,7 +33,7 @@ void GameOver::Update()
 
 void GameOver::Draw()
 {
-    title->Draw(window->CenterX(), window->CenterY(), Layer::BACK);
+    title->Draw(window->CenterX(), window->CenterY(), Layer::BACK, 1.1);
 }
 
 // ----------------------------------------------------------------------
