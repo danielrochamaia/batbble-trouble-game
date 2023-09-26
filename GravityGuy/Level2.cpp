@@ -16,7 +16,9 @@
 #include "Player.h"
 #include "Background.h"
 #include "Transition.h"
+#include "Ball.h"
 
+#include "Enums.h"
 #include <string>
 #include <fstream>
 using std::ifstream;
@@ -50,6 +52,57 @@ void Level2::Init()
 
     Home::audio->Play(MUSIC2);
 
+    GravityGuy::levelResponse = false;
+
+
+    if (GravityGuy::twoPlayers) {
+
+        Ball * ball = new Ball(GravityGuy::redBall, BALLGG1);
+        ball->MoveTo(450, 450);
+        scene->Add(ball, STATIC);
+
+        ball = new Ball(GravityGuy::redBall, BALLGG1);
+        ball->MoveTo(300, 200);
+        scene->Add(ball, STATIC);
+
+        ball = new Ball(GravityGuy::redBall, BALLGG2);
+        ball->MoveTo(window->CenterX(), window->CenterY());
+        scene->Add(ball, STATIC);
+
+        ball = new Ball(GravityGuy::redBall, BALLM1);
+        ball->MoveTo(200, 350);
+        scene->Add(ball, STATIC);
+
+        ball = new Ball(GravityGuy::redBall, BALLM2);
+        ball->MoveTo(300, 250);
+        scene->Add(ball, STATIC);
+    }
+    else {
+
+        Ball * ball = new Ball(GravityGuy::redBall, BALLGG1);
+        ball->MoveTo(700, 200);
+        scene->Add(ball, STATIC);
+
+        GravityGuy::bolasEstouradas += 15;
+
+        ball = new Ball(GravityGuy::redBall, BALLGG2);
+        ball->MoveTo(window->CenterX(), window->CenterY());
+        scene->Add(ball, STATIC);
+
+        GravityGuy::bolasEstouradas += 15;
+
+        ball = new Ball(GravityGuy::redBall, BALLM1);
+        ball->MoveTo(200, 500);
+        scene->Add(ball, STATIC);
+
+        GravityGuy::bolasEstouradas += 3;
+
+        ball = new Ball(GravityGuy::redBall, BALLM2);
+        ball->MoveTo(700, 350);
+        scene->Add(ball, STATIC);
+
+        GravityGuy::bolasEstouradas += 3;
+    }
     // ----------------------
     // plataformas
     // ----------------------
@@ -90,19 +143,9 @@ void Level2::Init()
 
 void Level2::Update()
 {
-    if (gameover)
+    if (GravityGuy::bolasEstouradas == 0 || window->KeyPress('N'))
     {
-        Home::audio->Stop(MUSIC2);
-        GravityGuy::NextLevel<GameOver>();
-        GravityGuy::player1->disparoPlayer = false;
-        if (GravityGuy::twoPlayers) {
-            GravityGuy::player2->disparoPlayer = false;
-        }
-        GravityGuy::player1->Reset();
-        gameover = false;
-    }
-    if (GravityGuy::player1->Level() == 2 || window->KeyPress('N'))
-    {
+        GravityGuy::bolasEstouradas = 0;
         Home::audio->Stop(MUSIC2);
         GravityGuy::hud->Stop();
         GravityGuy::NextLevel<Transition>();

@@ -29,7 +29,6 @@ using std::string;
 // Inicializa membros estáticos da classe
 
 Scene * Level1::scene = nullptr;
-Image* Level1::redBall = nullptr;
 // ------------------------------------------------------------------------------
 
 void Level1::Init()
@@ -52,6 +51,8 @@ void Level1::Init()
 
     }
 
+
+    GravityGuy::levelResponse = true;
     // ----------------------
     // plataformas
     // ----------------------
@@ -62,16 +63,33 @@ void Level1::Init()
     //Color white { 1,1,1,1 };
     //Ball* ball;
     //Moldura* moldura;
-
-    redBall = new Image("Resources/bola-g.png");
     
     //ball = new Ball(redBall, -200, INIMIGO);
     //Ball * ball = new Ball(redBall, -200, INIMIGO);
     //ball->MoveTo(window->CenterX(), window->CenterY());
     //ball->BBox(new Circle(72.0f));
-    Ball * ball = new Ball(redBall, BALLGG1);
-    ball->MoveTo(window->CenterX(), window->CenterX());
-    scene->Add(ball, STATIC);
+    Ball* ball;
+
+
+
+    if (GravityGuy::twoPlayers) {
+        ball = new Ball(GravityGuy::redBall, BALLGG1);
+        ball->MoveTo(700, 200);
+        scene->Add(ball, STATIC);
+
+        ball = new Ball(GravityGuy::redBall, BALLGG2);
+        ball->MoveTo(window->CenterX(), window->CenterY());
+        scene->Add(ball, STATIC);
+
+        GravityGuy::bolasEstouradas = 30;
+    }
+    else {
+        ball = new Ball(GravityGuy::redBall, BALLGG1);
+        ball->MoveTo(350, 350);
+        scene->Add(ball, STATIC);
+
+        GravityGuy::bolasEstouradas = 15;
+    }
 
     
     //moldura = new Moldura(new Image(""), 0, CIMA);
@@ -138,8 +156,9 @@ void Level1::Update()
         GravityGuy::player1->Reset();
         GravityGuy::pontos = 0;
     }
-    else if (GravityGuy::player1->Level() == 1 || window->KeyPress('N'))
+    else if (GravityGuy::bolasEstouradas == 0 || window->KeyPress('N'))
     {
+        GravityGuy::bolasEstouradas = 0;
         Home::audio->Stop(MUSIC1);
         GravityGuy::hud->Stop();
         GravityGuy::NextLevel<Transition>();

@@ -11,6 +11,7 @@
 
 #include "Ball.h"
 #include "Level1.h"
+#include "Level2.h"
 #include "GravityGuy.h"
 #include "Enums.h"
 #include "Home.h"
@@ -134,6 +135,8 @@ Ball::Ball(Image* img, uint tipo)
         BBox(new Circle(img->Height() / 2.0f));
 
         raio = 9.125f;
+
+
     }
 
     if (type == BALLP2)
@@ -151,6 +154,7 @@ Ball::Ball(Image* img, uint tipo)
         BBox(new Circle(img->Height() / 2.0f));
 
         raio = 9.125f;
+
     }
 
 
@@ -172,43 +176,90 @@ void Ball::Update()
 
         Home::audio->Play(BOLHA);
 
-        if (type == BALLGG1 || type == BALLGG2) 
+        if (GravityGuy::levelResponse)
         {
-            Ball* ball = new Ball(Level1::redBall, BALLG1);
-            ball->MoveTo(x, y - 25);
-            Level1::scene->Add(ball, STATIC);
-            ball = new Ball(Level1::redBall, BALLG2);
-            ball->MoveTo(x, y - 25);
-            Level1::scene->Add(ball, STATIC);
-            Level1::scene->Delete();
+            if (type == BALLGG1 || type == BALLGG2)
+            {
+                Ball* ball = new Ball(GravityGuy::redBall, BALLG1);
+                ball->MoveTo(x, y - 25);
+                Level1::scene->Add(ball, STATIC);
+                ball = new Ball(GravityGuy::redBall, BALLG2);
+                ball->MoveTo(x, y - 25);
+                Level1::scene->Add(ball, STATIC);
+                Level1::scene->Delete();
+
+            }
+
+            if (type == BALLG1 || type == BALLG2)
+            {
+                Ball* ball = new Ball(GravityGuy::redBall, BALLM1);
+                ball->MoveTo(x, y - 25);
+                Level1::scene->Add(ball, STATIC);
+                ball = new Ball(GravityGuy::redBall, BALLM2);
+                ball->MoveTo(x, y - 25);
+                Level1::scene->Add(ball, STATIC);
+                Level1::scene->Delete();
+            }
+
+            if (type == BALLM1 || type == BALLM2)
+            {
+                Ball* ball = new Ball(GravityGuy::redBall, BALLP1);
+                ball->MoveTo(x, y - 25);
+                Level1::scene->Add(ball, STATIC);
+                ball = new Ball(GravityGuy::redBall, BALLP2);
+                ball->MoveTo(x, y - 25);
+                Level1::scene->Add(ball, STATIC);
+                Level1::scene->Delete();
+            }
+
+            if (type == BALLP1 || type == BALLP2)
+            {
+                Level1::scene->Delete();
+            }
+        }
+        else 
+        {
+            if (type == BALLGG1 || type == BALLGG2)
+            {
+                Ball* ball = new Ball(GravityGuy::redBall, BALLG1);
+                ball->MoveTo(x, y - 25);
+                Level2::scene->Add(ball, STATIC);
+                ball = new Ball(GravityGuy::redBall, BALLG2);
+                ball->MoveTo(x, y - 25);
+                Level2::scene->Add(ball, STATIC);
+                Level2::scene->Delete();
+
+            }
+
+            if (type == BALLG1 || type == BALLG2)
+            {
+                Ball* ball = new Ball(GravityGuy::redBall, BALLM1);
+                ball->MoveTo(x, y - 25);
+                Level2::scene->Add(ball, STATIC);
+                ball = new Ball(GravityGuy::redBall, BALLM2);
+                ball->MoveTo(x, y - 25);
+                Level2::scene->Add(ball, STATIC);
+                Level2::scene->Delete();
+            }
+
+            if (type == BALLM1 || type == BALLM2)
+            {
+                Ball* ball = new Ball(GravityGuy::redBall, BALLP1);
+                ball->MoveTo(x, y - 25);
+                Level2::scene->Add(ball, STATIC);
+                ball = new Ball(GravityGuy::redBall, BALLP2);
+                ball->MoveTo(x, y - 25);
+                Level2::scene->Add(ball, STATIC);
+                Level2::scene->Delete();
+            }
+
+            if (type == BALLP1 || type == BALLP2)
+            {
+                Level2::scene->Delete();
+            }
         }
 
-        if (type == BALLG1 || type == BALLG2)
-        {
-            Ball* ball = new Ball(Level1::redBall, BALLM1);
-            ball->MoveTo(x, y - 25);
-            Level1::scene->Add(ball, STATIC);
-            ball = new Ball(Level1::redBall, BALLM2);
-            ball->MoveTo(x, y - 25);
-            Level1::scene->Add(ball, STATIC);
-            Level1::scene->Delete();
-        }
-
-        if (type == BALLM1 || type == BALLM2)
-        {
-            Ball* ball = new Ball(Level1::redBall, BALLP1);
-            ball->MoveTo(x, y - 25);
-            Level1::scene->Add(ball, STATIC);
-            ball = new Ball(Level1::redBall, BALLP2);
-            ball->MoveTo(x, y - 25);
-            Level1::scene->Add(ball, STATIC);
-            Level1::scene->Delete();
-        }
-
-        if (type == BALLP1 || type == BALLP2)
-        {
-            Level1::scene->Delete();
-        }
+        GravityGuy::bolasEstouradas -= 1;
     }
 
     // Verifica em qual parede a bola bateu e trata a relação de forças
@@ -259,7 +310,7 @@ void Ball::Update()
     else if(Y() < 0)
     {
         // SEM USO ATÉ O MOMENTO!
-        MoveTo(x, window->Height() - raio);
+        MoveTo(x, raio);
         speed.RotateTo(360.0f - speed.Angle());
         Vector gravity{ 270.0f, 200.0f * gameTime };
 
@@ -267,11 +318,11 @@ void Ball::Update()
         speed.Add(gravity);
         Translate(speed.XComponent() * gameTime, speed.YComponent() * gameTime);
     }
-    else if(Y() >= window->Height() - raio)
+    else if(Y() > window->Height() - raio)
     {
         // Tratamento da bola batendo no chão
-         MoveTo(x, window->Height() - raio - 5);
          speed.RotateTo(360.0f - speed.Angle());
+         MoveTo(x, window->Height() - raio - 10);
          Vector gravity{ 270.0f, 200.0f * gameTime };
 
          // adiciona gravidade ao vetor velocidade

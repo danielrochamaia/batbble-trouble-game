@@ -28,6 +28,10 @@ Hud * GravityGuy::hud = nullptr;
 float   GravityGuy::pontos = 0.0f;
 bool    GravityGuy::twoPlayers = false;
 bool GravityGuy::gameover = false;
+int GravityGuy::bolasEstouradas = 0;
+Image* GravityGuy::redBall = nullptr;
+bool GravityGuy::levelResponse = false;
+
 
 // ------------------------------------------------------------------------------
 
@@ -42,6 +46,7 @@ void GravityGuy::Init()
     twoPlayers = false;
     player1 = new Player("Resources/bat-flow-2.png");
     player2 = new Player("Resources/robin-flow-2.png");
+    redBall = new Image("Resources/bola-g.png");
     hud = new Hud();
     // inicializa nível de abertura do jogo
     level = new Home();
@@ -93,6 +98,7 @@ void GravityGuy::Finalize()
     }
     delete level;
     delete Home::audio;
+    delete redBall;
 }
 
 
@@ -108,7 +114,7 @@ int APIENTRY WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance,
     engine->window->Mode(WINDOWED);
     engine->window->Size(1080, 720);
     engine->window->Color(0, 0, 0);
-    engine->window->Title("Gravity Guy");
+    engine->window->Title("Batman Bubble");
     engine->window->Icon(IDI_ICON);
     engine->window->Cursor(IDC_CURSOR);
     //engine->graphics->VSync(true);

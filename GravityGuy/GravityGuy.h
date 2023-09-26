@@ -48,6 +48,9 @@ public:
     static bool twoPlayers;
     static float pontos;
     static Hud* hud;
+    static int bolasEstouradas;
+    static Image* redBall;      // grande fila de tartarugas
+    static bool levelResponse;
 
     static bool gameover;
     void Init();                    // inicializa jogo
