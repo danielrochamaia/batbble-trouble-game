@@ -15,6 +15,7 @@
 #include "GameOver.h"
 #include "Player.h"
 #include "Background.h"
+#include "Transition.h"
 
 #include <string>
 #include <fstream>
@@ -31,9 +32,10 @@ bool Level2::gameover = false;
 void Level2::Init()
 {
     GravityGuy::player1->nivelAtual = 2;
+    GravityGuy::player2->nivelAtual = 2;
     // cria gerenciador de cena
     scene = new Scene();
-
+    GravityGuy::hud->ResetTime();
     // pano de fundo do jogo
     Color dark{ 0.4f, 0.4f, 0.4f, 1.0f };
     backg = new Background(dark, "Resources/level2-2.png");
@@ -47,7 +49,6 @@ void Level2::Init()
     }
 
     Home::audio->Play(MUSIC2);
-    Home::audio->Volume(MUSIC2, 0.05f);
 
     // ----------------------
     // plataformas
@@ -100,15 +101,27 @@ void Level2::Update()
         GravityGuy::player1->Reset();
         gameover = false;
     }
-    if (window->KeyPress(VK_ESCAPE) || GravityGuy::player1->Level() == 2 || window->KeyPress('N'))
+    if (GravityGuy::player1->Level() == 2 || window->KeyPress('N'))
     {
         Home::audio->Stop(MUSIC2);
+        GravityGuy::hud->Stop();
+        GravityGuy::NextLevel<Transition>();
+        GravityGuy::player1->disparoPlayer = false;
+        if (GravityGuy::twoPlayers) {
+            GravityGuy::player2->disparoPlayer = false;
+        }
+        GravityGuy::player1->Reset();
+    }
+    else if (window->KeyPress(VK_ESCAPE)) {
+        Home::audio->Stop(MUSIC2);
+        GravityGuy::hud->Stop();
         GravityGuy::NextLevel<Home>();
         GravityGuy::player1->disparoPlayer = false;
         if (GravityGuy::twoPlayers) {
             GravityGuy::player2->disparoPlayer = false;
         }
         GravityGuy::player1->Reset();
+        GravityGuy::pontos = 0;
     }
     else
     {
@@ -123,6 +136,7 @@ void Level2::Draw()
 {
     backg->Draw();
     scene->Draw();
+    GravityGuy::hud->Draw();
 
     if (GravityGuy::viewBBox)
         scene->DrawBBox();

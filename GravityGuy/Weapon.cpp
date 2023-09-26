@@ -41,8 +41,11 @@ void Weapon::OnCollision(Object* obj)
 
 void Weapon::Update()
 {
-    if (jogador->disparoPlayer == false) {
+    if (jogador->disparoPlayer == false && jogador->nivelAtual == 1) {
         Level1::scene->Delete();
+    }
+    if (jogador->disparoPlayer == false && jogador->nivelAtual == 2) {
+        Level2::scene->Delete();
     }
 
     // --- aumente a escala de acordo com a distância percorrida ---

@@ -53,6 +53,28 @@ void Hud::Draw() {
 	fonte->Draw(60.0f, 60.0f, text.str());
 }
 
+void Hud::Draw(float posicoesTxt[]) {
+	text.str("");
+	text << "Tempo";
+	fonte->Draw(posicoesTxt[0], posicoesTxt[1], text.str());
+
+	text.str("");
+	text.width(3);
+	text.fill('0');
+	text << time;
+	fonte->Draw(posicoesTxt[2], posicoesTxt[3], text.str());
+
+	text.str("");
+	text << "Pontuação";
+	fonte->Draw(posicoesTxt[4], posicoesTxt[5], text.str());
+
+	text.str("");
+	text.width(4);
+	text.fill('0');
+	text << GravityGuy::pontos;
+	fonte->Draw(posicoesTxt[6], posicoesTxt[7], text.str());
+}
+
 void Hud::ResetTime()
 {
 	stopped = false;

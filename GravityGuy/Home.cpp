@@ -57,25 +57,33 @@ void Home::Init()
     audio = new Audio();
     audio->Add(HOME, "Resources/sons/Menu.wav");
     audio->Add(MUSIC1, "Resources/sons/" + musicas[0] + ".wav");
+    audio->Volume(MUSIC1, 0.3f);
     audio->Add(MUSIC2, "Resources/sons/" + musicas[7] + ".wav");
-    audio->Add(TRANSITION, "Resources/Transition.wav");
+    audio->Volume(MUSIC2, 0.3f);
+    audio->Add(OVER, "Resources/sons/gameover.wav");
+    audio->Volume(OVER, 0.3f);
+    audio->Add(TELAPONTO, "Resources/sons/telaponto.wav");
+    audio->Volume(TELAPONTO, 0.3f);
+    audio->Add(DISPARO, "Resources/sons/disparo.wav", 2);
+    audio->Add(BOLHA, "Resources/sons/bolha.wav", 2);
+    audio->Volume(DISPARO, 0.4f);
 
     scene = new Scene();
 
-    backg = new Sprite("Resources/menu-background.jpg");
+    backg = new Sprite("Resources/maxresdefault.jpg");
     //backg = new Sprite("Resources/menu.png");
-    tileset = new TileSet("Resources/PressEnter.png", 72, 48, 1, 5);
+    tileset = new TileSet("", 72, 48, 1, 5);
     anim = new Animation(tileset, 0.180f, true);
     audio->Play(HOME, true);
-    audio->Volume(HOME, 0.05f);
+    audio->Volume(HOME, 0.3f);
 
     mouse = new Mouse();
     scene->Add(mouse, MOVING);
 
     // cria itens de menu
-    menu[0] = new Item(900, 250, SINGLE, "Resources/SinglePlayer.png");
-    menu[1] = new Item(900, 305, MULTI, "Resources/MultiPlayer.png");
-    menu[2] = new Item(900, 360, EXIT, "Resources/ExitGame.png");
+    menu[0] = new Item(200.0f, 70.0f, SINGLE, "Resources/SinglePlayer.png");
+    menu[1] = new Item(550, 70.0f, MULTI, "Resources/MultiPlayer.png");
+    menu[2] = new Item(900, 70.0f, EXIT, "Resources/ExitGame.png");
 
     // adiciona itens na cena
     for (int i = 0; i < MaxItens; ++i)
@@ -141,7 +149,7 @@ void Home::Update()
 
 void Home::Draw()
 {
-    backg->Draw(window->CenterX() + 220, window->CenterY(), Layer::BACK);
+    backg->Draw(window->CenterX()+10, window->CenterY() + 30, Layer::BACK);
     anim->Draw(545, 275);
 
     // desenha itens do menu

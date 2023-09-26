@@ -24,7 +24,7 @@
 #include "Item.h"
 #include "Scene.h"
 
-enum Sounds { HOME, MUSIC1, MUSIC2, GAMEOVER, TRANSITION};
+enum Sounds { HOME, MUSIC1, MUSIC2, GAMEOVER, DISPARO, OVER, BOLHA, TELAPONTO};
 
 enum MenuID { SINGLE, MULTI, TRACKS, LEADERBOARD, OPTIONS, EXIT };
 

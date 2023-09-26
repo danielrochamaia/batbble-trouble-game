@@ -13,6 +13,7 @@
 #include "Level1.h"
 #include "GravityGuy.h"
 #include "Enums.h"
+#include "Home.h"
 
 // ---------------------------------------------------------------------------------
 
@@ -169,6 +170,8 @@ void Ball::Update()
 
     if (state == 1) {
 
+        Home::audio->Play(BOLHA);
+
         if (type == BALLGG1 || type == BALLGG2) 
         {
             Ball* ball = new Ball(Level1::redBall, BALLG1);
@@ -304,7 +307,9 @@ void Ball::OnCollision(Object* obj)
 
     if (obj->Type() == PLAYER)
     {
-        Level1::gameover = true;
+        Home::audio->Play(OVER);
+        GravityGuy::gameover = true;
+        GravityGuy::pontos = 0;
     }
 }
 // ---------------------------------------------------------------------------------

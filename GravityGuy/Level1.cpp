@@ -17,6 +17,7 @@
 #include "Player.h"
 #include "Background.h"
 #include "Ball.h"
+#include "Transition.h"
 
 #include <string>
 #include <fstream>
@@ -29,12 +30,12 @@ using std::string;
 
 Scene * Level1::scene = nullptr;
 Image* Level1::redBall = nullptr;
-bool Level1::gameover = false;
 // ------------------------------------------------------------------------------
 
 void Level1::Init()
 {
     GravityGuy::player1->nivelAtual = 1;
+    GravityGuy::player2->nivelAtual = 1;
     // cria gerenciador de cena
     scene = new Scene();
     GravityGuy::hud->ResetTime();
@@ -120,26 +121,13 @@ void Level1::Init()
     // ----------------------
         // inicia com música
     Home::audio->Play(MUSIC1, true);
-    Home::audio->Volume(MUSIC1, 0.05f);
 }
 
 // ------------------------------------------------------------------------------
 
 void Level1::Update()
 {
-
-    if (gameover)
-    {
-        Home::audio->Stop(MUSIC1);
-        GravityGuy::NextLevel<GameOver>();
-        GravityGuy::player1->disparoPlayer = false;
-        if(GravityGuy::twoPlayers) {
-            GravityGuy::player2->disparoPlayer = false;
-        }
-        GravityGuy::player1->Reset();
-        gameover = false;
-    }
-    else if (window->KeyPress(VK_ESCAPE))
+    if (window->KeyPress(VK_ESCAPE))
     {
         Home::audio->Stop(MUSIC1);
         GravityGuy::NextLevel<Home>();
@@ -148,13 +136,13 @@ void Level1::Update()
             GravityGuy::player2->disparoPlayer = false;
         }
         GravityGuy::player1->Reset();
+        GravityGuy::pontos = 0;
     }
     else if (GravityGuy::player1->Level() == 1 || window->KeyPress('N'))
     {
         Home::audio->Stop(MUSIC1);
-        GravityGuy::pontos += 350;
         GravityGuy::hud->Stop();
-        GravityGuy::NextLevel<Level2>();
+        GravityGuy::NextLevel<Transition>();
         GravityGuy::player1->disparoPlayer = false;
         GravityGuy::player2->disparoPlayer = false;
     }

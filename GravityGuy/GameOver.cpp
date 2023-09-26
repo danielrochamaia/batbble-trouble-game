@@ -18,22 +18,24 @@
 
 void GameOver::Init()
 {
-    title = new Sprite("Resources/OIG.png");
+    title = new Sprite("Resources/Game_over.png");
 }
 
 // ----------------------------------------------------------------------
 
 void GameOver::Update()
 {
-    if (window->KeyPress(VK_ESCAPE) || window->KeyPress(VK_RETURN))
+    if (window->KeyPress(VK_ESCAPE) || window->KeyPress(VK_RETURN)) {
+        Home::audio->Stop(OVER);
         GravityGuy::NextLevel<Home>();
+    }
 }
 
 // ----------------------------------------------------------------------
 
 void GameOver::Draw()
 {
-    title->Draw(window->CenterX(), window->CenterY(), Layer::BACK, 1.1);
+    title->Draw(window->CenterX()+50, window->CenterY(), Layer::BACK, 1.2);
 }
 
 // ----------------------------------------------------------------------

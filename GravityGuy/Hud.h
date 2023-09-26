@@ -24,6 +24,7 @@ public:
 
     void Update();
     void Draw();
+    void Draw(float posicoesTxt[]);
 
     void Stop() { stopped = true; };
     void ResetTime();

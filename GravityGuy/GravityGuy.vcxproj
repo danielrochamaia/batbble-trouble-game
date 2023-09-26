@@ -180,6 +180,7 @@
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="TileSet.cpp" />
     <ClCompile Include="Timer.cpp" />
+    <ClCompile Include="Transition.cpp" />
     <ClCompile Include="Vector.cpp" />
     <ClCompile Include="Weapon.cpp" />
     <ClCompile Include="Window.cpp" />
@@ -200,6 +201,7 @@
     <ClInclude Include="Hud.h" />
     <ClInclude Include="Item.h" />
     <ClInclude Include="Mouse.h" />
+    <ClInclude Include="Transition.h" />
     <ClInclude Include="Weapon.h" />
     <ClInclude Include="Home.h" />
     <ClInclude Include="Image.h" />

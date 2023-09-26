@@ -14,6 +14,7 @@
 #include "Home.h"
 #include "GameOver.h"
 #include "Hud.h"
+#include "Player.h"
 
 
 // ------------------------------------------------------------------------------
@@ -26,8 +27,7 @@ bool    GravityGuy::viewBBox = false;
 Hud * GravityGuy::hud = nullptr;
 float   GravityGuy::pontos = 0.0f;
 bool    GravityGuy::twoPlayers = false;
-
-
+bool GravityGuy::gameover = false;
 
 // ------------------------------------------------------------------------------
 
@@ -52,6 +52,18 @@ void GravityGuy::Init()
 
 void GravityGuy::Update()
 {
+    if (gameover)
+    {
+        NextLevel<GameOver>();
+        gameover = false;
+        Home::audio->Stop(MUSIC1);
+        Home::audio->Stop(MUSIC2);
+    }
+
+    if (hud->Time() == 0) {
+        gameover = true;
+    }
+
     // habilita/desabilita visualização da bounding box
     if (window->KeyPress('B'))
         viewBBox = !viewBBox;    
@@ -95,7 +107,7 @@ int APIENTRY WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance,
     // configura o motor
     engine->window->Mode(WINDOWED);
     engine->window->Size(1080, 720);
-    engine->window->Color(30, 50, 80);
+    engine->window->Color(0, 0, 0);
     engine->window->Title("Gravity Guy");
     engine->window->Icon(IDI_ICON);
     engine->window->Cursor(IDC_CURSOR);

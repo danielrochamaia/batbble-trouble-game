@@ -31,7 +31,6 @@ public:
     static Scene* scene;           // cena do nível
     static Image* redBall;      // grande fila de tartarugas
 
-    static bool gameover;
     void Init();                    // inicialização do nível
     void Update();                  // atualiza lógica do jogo
     void Draw();                    // desenha jogo

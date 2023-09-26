@@ -49,6 +49,7 @@ public:
     static float pontos;
     static Hud* hud;
 
+    static bool gameover;
     void Init();                    // inicializa jogo
     void Update();                  // atualiza lógica do jogo
     void Draw();                    // desenha jogo
