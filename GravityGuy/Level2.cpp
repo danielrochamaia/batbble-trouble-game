@@ -61,21 +61,31 @@ void Level2::Init()
         ball->MoveTo(450, 450);
         scene->Add(ball, STATIC);
 
+        GravityGuy::bolasEstouradas += 15;
+
         ball = new Ball(GravityGuy::redBall, BALLGG1);
         ball->MoveTo(300, 200);
         scene->Add(ball, STATIC);
+
+        GravityGuy::bolasEstouradas += 15;
 
         ball = new Ball(GravityGuy::redBall, BALLGG2);
         ball->MoveTo(window->CenterX(), window->CenterY());
         scene->Add(ball, STATIC);
 
+        GravityGuy::bolasEstouradas += 15;
+
         ball = new Ball(GravityGuy::redBall, BALLM1);
         ball->MoveTo(200, 350);
         scene->Add(ball, STATIC);
 
+        GravityGuy::bolasEstouradas += 3;
+
         ball = new Ball(GravityGuy::redBall, BALLM2);
         ball->MoveTo(300, 250);
         scene->Add(ball, STATIC);
+
+        GravityGuy::bolasEstouradas += 3;
     }
     else {
 
