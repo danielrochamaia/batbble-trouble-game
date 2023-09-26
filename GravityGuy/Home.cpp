@@ -109,6 +109,7 @@ void Home::Update()
                     {
                     case SINGLE:
                         audio->Stop(HOME);
+                        GravityGuy::twoPlayers = false;
                         GravityGuy::NextLevel<Level1>();
                      break;
                     case MULTI:
