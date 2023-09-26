@@ -55,14 +55,14 @@ void Home::Init()
 
     // cria sistema de áudio
     audio = new Audio();
-    audio->Add(HOME, "Resources/sons/Menu.wav");
+    audio->Add(HOME, "Resources/sons/telaponto.wav");
     audio->Add(MUSIC1, "Resources/sons/" + musicas[0] + ".wav");
     audio->Volume(MUSIC1, 0.3f);
     audio->Add(MUSIC2, "Resources/sons/" + musicas[7] + ".wav");
     audio->Volume(MUSIC2, 0.3f);
     audio->Add(OVER, "Resources/sons/gameover.wav");
     audio->Volume(OVER, 0.3f);
-    audio->Add(TELAPONTO, "Resources/sons/telaponto.wav");
+    audio->Add(TELAPONTO, "Resources/sons/Menu.wav");
     audio->Volume(TELAPONTO, 0.3f);
     audio->Add(DISPARO, "Resources/sons/disparo.wav", 2);
     audio->Add(BOLHA, "Resources/sons/bolha.wav", 2);
