@@ -42,6 +42,7 @@ void Level2::Init()
     // adiciona jogador na cena
     scene->Add(GravityGuy::player1, MOVING);
     if (GravityGuy::twoPlayers) {
+        GravityGuy::player2->MoveTo(GravityGuy::player1->X() + 400, GravityGuy::player1->Y());
         scene->Add(GravityGuy::player2, MOVING);
     }
 

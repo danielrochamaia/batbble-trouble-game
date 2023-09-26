@@ -46,6 +46,8 @@ void Level1::Init()
     scene->Add(GravityGuy::player1, MOVING);
     if (GravityGuy::twoPlayers) {
         scene->Add(GravityGuy::player2, MOVING);
+        GravityGuy::player2->MoveTo(GravityGuy::player1->X() + 400, GravityGuy::player1->Y());
+
     }
 
     // ----------------------

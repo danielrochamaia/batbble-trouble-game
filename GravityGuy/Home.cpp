@@ -108,8 +108,12 @@ void Home::Update()
                     switch (menu[i]->Type())
                     {
                     case SINGLE:
+                        audio->Stop(HOME);
+                        GravityGuy::NextLevel<Level1>();
+                     break;
                     case MULTI:
                         audio->Stop(HOME);
+                        GravityGuy::twoPlayers = true;
                         GravityGuy::NextLevel<Level1>();
                     break;
                     case EXIT: window->Close(); break;

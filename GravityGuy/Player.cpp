@@ -20,7 +20,7 @@
 
 // ---------------------------------------------------------------------------------
 const double Player::PIXEL_PER_METER = 50;
-bool twoPlayers;
+
 Player::Player(string src)
 {
     tileset = new TileSet(src, 50, 101, 3, 12);
@@ -54,7 +54,6 @@ Player::Player(string src)
 
     // posição inicial
     MoveTo(300, 670, Layer::FRONT);
-    twoPlayers = GravityGuy::twoPlayers;
 }
 
 // ---------------------------------------------------------------------------------
@@ -185,7 +184,7 @@ void Player::Update()
     #pragma endregion
 
     #pragma region Movimentação Player 2
-    if (twoPlayers) {
+    if (GravityGuy::twoPlayers) {
         if (window->KeyDown('A')) {
             GravityGuy::player2->state = RUN;
             GravityGuy::player2->isMovingLeft = true;
@@ -223,7 +222,7 @@ void Player::Reset()
 {
     // volta ao estado inicial
     GravityGuy::player1->MoveTo(300, 670, Layer::FRONT);
-    if (twoPlayers) {
+    if (GravityGuy::twoPlayers) {
         GravityGuy::player2->MoveTo(GravityGuy::player1->X() + 400, GravityGuy::player1->Y());
     }
 }
