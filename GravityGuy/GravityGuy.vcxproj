@@ -165,6 +165,7 @@
     <ClCompile Include="Graphics.cpp" />
     <ClCompile Include="GravityGuy.cpp" />
     <ClCompile Include="Home.cpp" />
+    <ClCompile Include="Hud.cpp" />
     <ClCompile Include="Image.cpp" />
     <ClCompile Include="Item.cpp" />
     <ClCompile Include="Level1.cpp" />
@@ -196,6 +197,7 @@
     <ClInclude Include="Geometry.h" />
     <ClInclude Include="Graphics.h" />
     <ClInclude Include="GravityGuy.h" />
+    <ClInclude Include="Hud.h" />
     <ClInclude Include="Item.h" />
     <ClInclude Include="Mouse.h" />
     <ClInclude Include="Weapon.h" />

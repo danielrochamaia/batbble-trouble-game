@@ -291,12 +291,14 @@ void Ball::OnCollision(Object* obj)
     if (obj->Type() == ARPAO1) {
         state = 1;
         GravityGuy::player1->disparoPlayer = false;
+        GravityGuy::pontos += 250;
 
     }
 
     if (obj->Type() == ARPAO2) {
         state = 1;
         GravityGuy::player2->disparoPlayer = false;
+        GravityGuy::pontos += 250;
 
     }
 

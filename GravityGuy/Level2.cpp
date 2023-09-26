@@ -36,7 +36,7 @@ void Level2::Init()
 
     // pano de fundo do jogo
     Color dark{ 0.4f, 0.4f, 0.4f, 1.0f };
-    backg = new Background(dark, "Resources/level2.png");
+    backg = new Background(dark, "Resources/level2-2.png");
     scene->Add(backg, STATIC);
 
     // adiciona jogador na cena

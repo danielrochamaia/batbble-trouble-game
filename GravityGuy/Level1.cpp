@@ -37,9 +37,10 @@ void Level1::Init()
     GravityGuy::player1->nivelAtual = 1;
     // cria gerenciador de cena
     scene = new Scene();
+    GravityGuy::hud->ResetTime();
 
     // pano de fundo do jogo
-    backg = new Background(Color{ 1,1,1,1 }, "Resources/level1.png");
+    backg = new Background(Color{ 1,1,1,1 }, "Resources/level1-2.png");
     scene->Add(backg, STATIC);
 
     // adiciona jogador na cena
@@ -151,6 +152,8 @@ void Level1::Update()
     else if (GravityGuy::player1->Level() == 1 || window->KeyPress('N'))
     {
         Home::audio->Stop(MUSIC1);
+        GravityGuy::pontos += 350;
+        GravityGuy::hud->Stop();
         GravityGuy::NextLevel<Level2>();
         GravityGuy::player1->disparoPlayer = false;
         GravityGuy::player2->disparoPlayer = false;
@@ -168,6 +171,7 @@ void Level1::Draw()
 {
     backg->Draw();
     scene->Draw();
+    GravityGuy::hud->Draw();
 
     if (GravityGuy::viewBBox)
         scene->DrawBBox();

@@ -13,6 +13,7 @@
 #include "GravityGuy.h"
 #include "Home.h"
 #include "GameOver.h"
+#include "Hud.h"
 
 
 // ------------------------------------------------------------------------------
@@ -22,6 +23,8 @@ Game*   GravityGuy::level = nullptr;
 Player* GravityGuy::player1 = nullptr;
 Player* GravityGuy::player2 = nullptr;
 bool    GravityGuy::viewBBox = false;
+Hud * GravityGuy::hud = nullptr;
+float   GravityGuy::pontos = 0.0f;
 bool    GravityGuy::twoPlayers = false;
 
 
@@ -39,7 +42,7 @@ void GravityGuy::Init()
     twoPlayers = false;
     player1 = new Player("Resources/bat-flow-2.png");
     player2 = new Player("Resources/robin-flow-2.png");
-
+    hud = new Hud();
     // inicializa nível de abertura do jogo
     level = new Home();
     level->Init();
@@ -55,6 +58,7 @@ void GravityGuy::Update()
 
     // atualiza nível
     level->Update();
+    hud->Update();
 } 
 
 // ------------------------------------------------------------------------------

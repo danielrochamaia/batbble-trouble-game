@@ -17,6 +17,7 @@
 #include "Game.h"
 #include "Player.h"
 #include "Resources.h"
+#include "Hud.h"
 
 // ------------------------------------------------------------------------------
 
@@ -45,6 +46,8 @@ public:
     static Player * player2;         // jogador 2
     static bool viewBBox;           // estado da bounding box
     static bool twoPlayers;
+    static float pontos;
+    static Hud* hud;
 
     void Init();                    // inicializa jogo
     void Update();                  // atualiza lógica do jogo
