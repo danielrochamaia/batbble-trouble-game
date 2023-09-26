@@ -24,14 +24,14 @@
 
 class Weapon : public Object
 {
-public:
+private:
     Sprite* sprite;                            // sprite do míssil
     Vector speed;                               // velocidade do míssil
-
+    Player *jogador;
 public:
-    Weapon(Player* player, Image* img);    // construtor
+    Weapon(Player* player, Image* img, uint tipo);    // construtor
     ~Weapon();                                 // destrutor
-
+    void OnCollision(Object* obj);     // resolução da colisão
     float scale;
     float dy = 0;
     float velY;                        // velocidade vertical  

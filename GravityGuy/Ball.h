@@ -27,13 +27,15 @@ class Ball : public Object
 private:
     Sprite* sprite;            // sprite do bloco
     Vector speed;
+    uint state = 0;
+    float raio = 0;
 
 public:
-    float velX;                 // velocidade horizontal
-    float velY;                 // velocidade vertical
-    float vel;
 
-    Ball(Image* img, float velocidade, uint tipo);         // construtor
+
+
+    Ball(Image* img, uint tipo);         // construtor
+    Ball(Image* img, Object* obj, uint tipo); // construtor para outra bolas
     ~Ball();                   // destrutor
 
 
@@ -46,7 +48,7 @@ public:
 
 inline void Ball::Draw()
 {
-    sprite->Draw(x, y);
+    sprite->Draw(x, y, z , scale);
 }
 
 // ---------------------------------------------------------------------------------

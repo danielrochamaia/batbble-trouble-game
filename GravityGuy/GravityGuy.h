@@ -17,15 +17,17 @@
 #include "Game.h"
 #include "Player.h"
 #include "Resources.h"
+#include "Hud.h"
 
 // ------------------------------------------------------------------------------
 
 enum TypeObjects
 {
     PLAYER,
-    RIO,
+    ARPAO,
     AMIGAVEL,
     INIMIGO,
+    BOLA,
     CIMA,
     BAIXO,
     ESQUERDA,
@@ -40,9 +42,17 @@ private:
     static Game * level;            // nível atual do jogo
 
 public:
-    static Player * player;         // jogador 
+    static Player * player1;         // jogador 1
+    static Player * player2;         // jogador 2
     static bool viewBBox;           // estado da bounding box
+    static bool twoPlayers;
+    static float pontos;
+    static Hud* hud;
+    static int bolasEstouradas;
+    static Image* redBall;      // grande fila de tartarugas
+    static bool levelResponse;
 
+    static bool gameover;
     void Init();                    // inicializa jogo
     void Update();                  // atualiza lógica do jogo
     void Draw();                    // desenha jogo

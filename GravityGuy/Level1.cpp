@@ -15,13 +15,13 @@
 #include "Level2.h"
 #include "GameOver.h"
 #include "Player.h"
-#include "Platform.h"
 #include "Background.h"
 #include "Ball.h"
-#include "Moldura.h"
+#include "Transition.h"
 
 #include <string>
 #include <fstream>
+#include "Enums.h"
 using std::ifstream;
 using std::string;
 
@@ -29,22 +29,30 @@ using std::string;
 // Inicializa membros estáticos da classe
 
 Scene * Level1::scene = nullptr;
-
 // ------------------------------------------------------------------------------
 
 void Level1::Init()
 {
-    GravityGuy::player->nivelAtual = 1;
+    GravityGuy::player1->nivelAtual = 1;
+    GravityGuy::player2->nivelAtual = 1;
     // cria gerenciador de cena
     scene = new Scene();
+    GravityGuy::hud->ResetTime();
 
     // pano de fundo do jogo
-    backg = new Background(Color{ 1,1,1,1 }, "Resources/level1.png");
+    backg = new Background(Color{ 1,1,1,1 }, "Resources/level1-2.png");
     scene->Add(backg, STATIC);
 
     // adiciona jogador na cena
-    scene->Add(GravityGuy::player, MOVING);
+    scene->Add(GravityGuy::player1, MOVING);
+    if (GravityGuy::twoPlayers) {
+        scene->Add(GravityGuy::player2, MOVING);
+        GravityGuy::player2->MoveTo(GravityGuy::player1->X() + 400, GravityGuy::player1->Y());
 
+    }
+
+
+    GravityGuy::levelResponse = true;
     // ----------------------
     // plataformas
     // ----------------------
@@ -55,14 +63,33 @@ void Level1::Init()
     //Color white { 1,1,1,1 };
     //Ball* ball;
     //Moldura* moldura;
-
-    redBall = new Image("Resources/bola-g.png");
     
     //ball = new Ball(redBall, -200, INIMIGO);
-    Ball * ball = new Ball(redBall, -200, INIMIGO);
-    ball->MoveTo(window->CenterX(), window->CenterY());
-    ball->BBox(new Circle(72.0f));
-    scene->Add(ball, MOVING);
+    //Ball * ball = new Ball(redBall, -200, INIMIGO);
+    //ball->MoveTo(window->CenterX(), window->CenterY());
+    //ball->BBox(new Circle(72.0f));
+    Ball* ball;
+
+
+
+    if (GravityGuy::twoPlayers) {
+        ball = new Ball(GravityGuy::redBall, BALLGG1);
+        ball->MoveTo(700, 200);
+        scene->Add(ball, STATIC);
+
+        ball = new Ball(GravityGuy::redBall, BALLGG2);
+        ball->MoveTo(window->CenterX(), window->CenterY());
+        scene->Add(ball, STATIC);
+
+        GravityGuy::bolasEstouradas = 30;
+    }
+    else {
+        ball = new Ball(GravityGuy::redBall, BALLGG1);
+        ball->MoveTo(350, 350);
+        scene->Add(ball, STATIC);
+
+        GravityGuy::bolasEstouradas = 15;
+    }
 
     
     //moldura = new Moldura(new Image(""), 0, CIMA);
@@ -112,7 +139,6 @@ void Level1::Init()
     // ----------------------
         // inicia com música
     Home::audio->Play(MUSIC1, true);
-    Home::audio->Volume(MUSIC1, 0.05f);
 }
 
 // ------------------------------------------------------------------------------
@@ -123,18 +149,21 @@ void Level1::Update()
     {
         Home::audio->Stop(MUSIC1);
         GravityGuy::NextLevel<Home>();
-        //GravityGuy::player->Reset();
+        GravityGuy::player1->disparoPlayer = false;
+        if (GravityGuy::twoPlayers) {
+            GravityGuy::player2->disparoPlayer = false;
+        }
+        GravityGuy::player1->Reset();
+        GravityGuy::pontos = 0;
     }
-    else if (GravityGuy::player->Bottom() < 0 || GravityGuy::player->Top() > window->Height())
+    else if (GravityGuy::bolasEstouradas == 0 || window->KeyPress('N'))
     {
+        GravityGuy::bolasEstouradas = 0;
         Home::audio->Stop(MUSIC1);
-        GravityGuy::NextLevel<GameOver>();
-        //GravityGuy::player->Reset();
-    }
-    else if (GravityGuy::player->Level() == 1 || window->KeyPress('N'))
-    {
-        Home::audio->Stop(MUSIC1);
-        GravityGuy::NextLevel<Level2>();
+        GravityGuy::hud->Stop();
+        GravityGuy::NextLevel<Transition>();
+        GravityGuy::player1->disparoPlayer = false;
+        GravityGuy::player2->disparoPlayer = false;
     }
     else
     {
@@ -149,6 +178,7 @@ void Level1::Draw()
 {
     backg->Draw();
     scene->Draw();
+    GravityGuy::hud->Draw();
 
     if (GravityGuy::viewBBox)
         scene->DrawBBox();
@@ -158,7 +188,10 @@ void Level1::Draw()
 
 void Level1::Finalize()
 {
-    scene->Remove(GravityGuy::player, MOVING);
+    scene->Remove(GravityGuy::player1, MOVING);
+    if (GravityGuy::twoPlayers) {
+        scene->Remove(GravityGuy::player2, MOVING);
+    }
     delete scene;
 }
 

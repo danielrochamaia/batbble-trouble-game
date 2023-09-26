@@ -14,9 +14,11 @@
 #include "Level2.h"
 #include "GameOver.h"
 #include "Player.h"
-#include "Platform.h"
 #include "Background.h"
+#include "Transition.h"
+#include "Ball.h"
 
+#include "Enums.h"
 #include <string>
 #include <fstream>
 using std::ifstream;
@@ -26,26 +28,91 @@ using std::string;
 // Inicializa membros estáticos da classe
 
 Scene* Level2::scene = nullptr;
-
+bool Level2::gameover = false;
 // ------------------------------------------------------------------------------
 
 void Level2::Init()
 {
-    GravityGuy::player->nivelAtual = 2;
+    GravityGuy::player1->nivelAtual = 2;
+    GravityGuy::player2->nivelAtual = 2;
     // cria gerenciador de cena
     scene = new Scene();
-
+    GravityGuy::hud->ResetTime();
     // pano de fundo do jogo
     Color dark{ 0.4f, 0.4f, 0.4f, 1.0f };
-    backg = new Background(dark, "Resources/level2.png");
+    backg = new Background(dark, "Resources/level2-2.png");
     scene->Add(backg, STATIC);
 
     // adiciona jogador na cena
-    scene->Add(GravityGuy::player, MOVING);
+    scene->Add(GravityGuy::player1, MOVING);
+    if (GravityGuy::twoPlayers) {
+        GravityGuy::player2->MoveTo(GravityGuy::player1->X() + 400, GravityGuy::player1->Y());
+        scene->Add(GravityGuy::player2, MOVING);
+    }
 
     Home::audio->Play(MUSIC2);
-    Home::audio->Volume(MUSIC2, 0.05f);
 
+    GravityGuy::levelResponse = false;
+
+
+    if (GravityGuy::twoPlayers) {
+
+        Ball * ball = new Ball(GravityGuy::redBall, BALLGG1);
+        ball->MoveTo(450, 450);
+        scene->Add(ball, STATIC);
+
+        GravityGuy::bolasEstouradas += 15;
+
+        ball = new Ball(GravityGuy::redBall, BALLGG1);
+        ball->MoveTo(300, 200);
+        scene->Add(ball, STATIC);
+
+        GravityGuy::bolasEstouradas += 15;
+
+        ball = new Ball(GravityGuy::redBall, BALLGG2);
+        ball->MoveTo(window->CenterX(), window->CenterY());
+        scene->Add(ball, STATIC);
+
+        GravityGuy::bolasEstouradas += 15;
+
+        ball = new Ball(GravityGuy::redBall, BALLM1);
+        ball->MoveTo(200, 350);
+        scene->Add(ball, STATIC);
+
+        GravityGuy::bolasEstouradas += 3;
+
+        ball = new Ball(GravityGuy::redBall, BALLM2);
+        ball->MoveTo(300, 250);
+        scene->Add(ball, STATIC);
+
+        GravityGuy::bolasEstouradas += 3;
+    }
+    else {
+
+        Ball * ball = new Ball(GravityGuy::redBall, BALLGG1);
+        ball->MoveTo(700, 200);
+        scene->Add(ball, STATIC);
+
+        GravityGuy::bolasEstouradas += 15;
+
+        ball = new Ball(GravityGuy::redBall, BALLGG2);
+        ball->MoveTo(window->CenterX(), window->CenterY());
+        scene->Add(ball, STATIC);
+
+        GravityGuy::bolasEstouradas += 15;
+
+        ball = new Ball(GravityGuy::redBall, BALLM1);
+        ball->MoveTo(200, 500);
+        scene->Add(ball, STATIC);
+
+        GravityGuy::bolasEstouradas += 3;
+
+        ball = new Ball(GravityGuy::redBall, BALLM2);
+        ball->MoveTo(700, 350);
+        scene->Add(ball, STATIC);
+
+        GravityGuy::bolasEstouradas += 3;
+    }
     // ----------------------
     // plataformas
     // ----------------------
@@ -86,17 +153,28 @@ void Level2::Init()
 
 void Level2::Update()
 {
-    if (window->KeyPress(VK_ESCAPE) || GravityGuy::player->Level() == 2 || window->KeyPress('N'))
+    if (GravityGuy::bolasEstouradas == 0 || window->KeyPress('N'))
     {
+        GravityGuy::bolasEstouradas = 0;
         Home::audio->Stop(MUSIC2);
-        GravityGuy::NextLevel<Home>();
-        //GravityGuy::player->Reset();
+        GravityGuy::hud->Stop();
+        GravityGuy::NextLevel<Transition>();
+        GravityGuy::player1->disparoPlayer = false;
+        if (GravityGuy::twoPlayers) {
+            GravityGuy::player2->disparoPlayer = false;
+        }
+        GravityGuy::player1->Reset();
     }
-    else if (GravityGuy::player->Bottom() < 0 || GravityGuy::player->Top() > window->Height())
-    {
+    else if (window->KeyPress(VK_ESCAPE)) {
         Home::audio->Stop(MUSIC2);
-        GravityGuy::NextLevel<GameOver>();
-        //GravityGuy::player->Reset();
+        GravityGuy::hud->Stop();
+        GravityGuy::NextLevel<Home>();
+        GravityGuy::player1->disparoPlayer = false;
+        if (GravityGuy::twoPlayers) {
+            GravityGuy::player2->disparoPlayer = false;
+        }
+        GravityGuy::player1->Reset();
+        GravityGuy::pontos = 0;
     }
     else
     {
@@ -111,6 +189,7 @@ void Level2::Draw()
 {
     backg->Draw();
     scene->Draw();
+    GravityGuy::hud->Draw();
 
     if (GravityGuy::viewBBox)
         scene->DrawBBox();
@@ -120,7 +199,10 @@ void Level2::Draw()
 
 void Level2::Finalize()
 {
-    scene->Remove(GravityGuy::player, MOVING);
+    scene->Remove(GravityGuy::player1, MOVING);
+    if (GravityGuy::twoPlayers) {
+        scene->Remove(GravityGuy::player2, MOVING);
+    }
     delete scene;
 }
 

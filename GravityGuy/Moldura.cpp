@@ -11,6 +11,7 @@
 
 #include "Moldura.h"
 #include "Level1.h"
+#include "Weapon.h"
 
 // ---------------------------------------------------------------------------------
 
@@ -35,6 +36,13 @@ Moldura::~Moldura()
 }
 
 // ---------------------------------------------------------------------------------
+void Moldura::OnCollision(Object* obj)
+{
+    //if (obj - Type() == Weapon) {
+
+   // }
+
+}
 
 void Moldura::Update()
 {

@@ -32,7 +32,7 @@ public:
     ~Moldura();                   // destrutor
 
 
-    //void OnCollision(Object* obj);     // resolução da colisão
+    void OnCollision(Object* obj);     // resolução da colisão
     void Draw();
     void Update();              // atualização do objeto
 };
